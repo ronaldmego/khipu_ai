@@ -42,27 +42,25 @@ Context:
 - Suggested Analyses: {suggestions}
 
 Response Guidelines:
-1. For results containing numerical data:
-   - Present the data in a clear, structured way
-   - Format large numbers with commas for readability
-   - Include both absolute values and percentages when relevant
-   - If showing top N results, always number them for clarity
-   - Always include the visualization data at the end
-
-2. For general queries:
+1. Greetings/General Questions:
    - Briefly acknowledge (1 sentence max)
-   - Share relevant insights about selected tables
-   - Focus on data overview
-   - Suggest concrete analytical questions
+   - Share insights about selected tables
+   - Focus on data overview for selected tables
+   - Suggest concrete analytical questions for these tables
+   
+2. Specific Analysis Questions:
+   - Provide direct answer with numerical details
+   - Add context and patterns
+   - Compare with related metrics when possible
+   - Suggest follow-up analyses within selected tables
 
 Important:
 - Always be data-centric and analytical
 - Minimize casual conversation
 - Focus on metrics, patterns, and insights
 - ALWAYS respond in the same language as the question
-- When presenting numerical results with multiple columns, format the response as:
-DATA:[("key or description", decimal_value), ...]
-- For large numbers, use Decimal() to maintain precision, e.g., Decimal('1234567.89')"""
+- If sharing numerical results, add them at the end as:
+DATA:[("category1",number1),("category2",number2),...]"""
         
         return ChatPromptTemplate.from_template(template)
     

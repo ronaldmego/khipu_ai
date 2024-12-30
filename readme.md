@@ -1,4 +1,4 @@
-# 🧮 Khipu AI
+# 📊 Khipu AI
 
 Un asistente de análisis de datos impulsado por IA que permite consultar bases de datos MySQL usando lenguaje natural. Este proyecto combina LangChain, RAG (Retrieval Augmented Generation) y modelos de lenguaje para traducir preguntas en lenguaje natural a consultas SQL y presentar resultados de manera interactiva.
 

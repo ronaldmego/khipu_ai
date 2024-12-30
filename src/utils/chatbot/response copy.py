@@ -1,8 +1,7 @@
 from typing import Dict, Any, Tuple, Optional, List
 import pandas as pd
 import logging
-import streamlit as st
-from decimal import Decimal
+import streamlit as st  # Añadimos esta importación
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +25,7 @@ class ResponseProcessor:
             if "DATA:" not in response:
                 return response, None
                 
-            main_response, data_str = response.split("DATA:", 1)
+            main_response, data_str = response.split("DATA:")
             main_response = main_response.strip()
             data_str = data_str.strip()
             
@@ -34,17 +33,13 @@ class ResponseProcessor:
                 return main_response, None
             
             try:
-                # Convertir string de datos a estructura Python
-                data_list = eval(data_str, {'Decimal': Decimal})
+                data_list = eval(data_str)
                 if not isinstance(data_list, (list, tuple)) or not data_list:
                     return main_response, None
                     
                 visualization_data = [
-                    {
-                        "Categoría": str(item[0] if isinstance(item, (tuple, list)) else item.get('category', '')),
-                        "Cantidad": float(item[1] if isinstance(item, (tuple, list)) else item.get('value', 0))
-                    }
-                    for item in data_list
+                    {"Categoría": str(cat), "Cantidad": float(count)}
+                    for cat, count in data_list
                 ]
                 return main_response, visualization_data
                 
@@ -81,7 +76,7 @@ class ResponseProcessor:
                 'response': main_response,
                 'visualization_data': visualization_data,
                 'selected_tables': selected_tables,
-                'schema_overview': None
+                'schema_overview': None  # Puedes añadir esto si lo necesitas
             }
             
             # Add RAG context if available

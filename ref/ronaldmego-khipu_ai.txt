@@ -1,0 +1,3838 @@
+Directory structure:
+└── ronaldmego-khipu_ai/
+    ├── .env.example
+    ├── docs/
+    │   └── time_series_handling.md
+    ├── scripts/
+    │   ├── mysql/
+    │   │   ├── mysql_check.py
+    │   │   ├── test_load.py
+    │   │   ├── load_universal.py
+    │   │   ├── load-backup.py
+    │   │   ├── init_db.py
+    │   │   ├── load.py
+    │   │   ├── clean_csv.py
+    │   │   └── csv_diagnostic.py
+    │   ├── generate_requirements.py
+    │   └── setup.py
+    ├── requirements.txt
+    ├── config/
+    │   └── config.py
+    ├── readme.md
+    └── src/
+        ├── services/
+        │   ├── state_management.py
+        │   ├── data_processing.py
+        │   └── rag_service.py
+        ├── components/
+        │   ├── history_view.py
+        │   ├── query_interface.py
+        │   ├── debug_panel.py
+        │   └── visualization.py
+        ├── layouts/
+        │   ├── header.py
+        │   └── footer.py
+        ├── pages/
+        │   └── Home.py
+        └── utils/
+            ├── database.py
+            ├── rag_utils.py
+            ├── llm_provider.py
+            └── chatbot/
+                ├── response.py
+                ├── __init__.py
+                ├── prompts.py
+                ├── query.py
+                ├── chains.py
+                └── insights.py
+
+================================================
+File: /readme.md
+================================================
+# 🤖 Data Assistant AI - LangChain SQL
+
+An AI-powered data analysis assistant that enables natural language querying of MySQL databases. This project combines LangChain and OpenAI to translate natural language questions into SQL queries and present results interactively. Built with modularity and universal dataset compatibility in mind.
+
+## 🌟 Key Features
+
+- **Natural Language Processing**: Converts plain language questions into SQL queries using LangChain and GPT-4
+- **Universal Dataset Compatibility**: Works with any structured dataset in MySQL
+- **Interactive UI**: Clean and intuitive Streamlit interface
+- **Intelligent Data Visualization**: Automatic chart generation based on query results
+- **Comprehensive Data Analysis**: Provides insights, patterns, and follow-up suggestions
+- **Multi-language Support**: Responds in the same language as the question
+- **Robust CSV Loading**: Advanced CSV import with multiple encoding and delimiter strategies
+- **Debug & Development Tools**: Built-in debugging panel and logging system
+
+## 🛠️ Technology Stack
+
+- **Backend Framework**: Python 3.8+
+- **UI Framework**: Streamlit
+- **AI/ML**:
+  - LangChain
+  - OpenAI GPT-4
+  - LangChain Community
+- **Database**: MySQL
+- **Data Processing**:
+  - Pandas
+  - NumPy
+- **Visualization**:
+  - Matplotlib
+  - Seaborn
+- **Development Tools**:
+  - Python-dotenv
+  - Logging system
+  - Type hints
+
+## 📋 Prerequisites
+
+- Python 3.8 or higher
+- MySQL Server
+- OpenAI API key
+- Git (for repository management)
+
+## 🚀 Installation
+
+1. **Clone the Repository**:
+```bash
+git clone https://github.com/ronaldmego/data_assistant_ai.git
+cd data_assistant_ai
+```
+
+2. **Run Setup Script**:
+```bash
+python scripts/setup.py
+```
+This script will:
+- Create a virtual environment
+- Install all dependencies
+- Generate requirements.txt
+- Guide you through initial configuration
+
+3. **Configure Environment Variables**:
+Create a `.env` file in the project root:
+```env
+OPENAI_API_KEY=your_openai_api_key
+MYSQL_USER=your_mysql_user
+MYSQL_PASSWORD=your_mysql_password
+MYSQL_HOST=your_mysql_host
+MYSQL_DATABASE=your_database_name
+IGNORED_TABLES=table1,table2,table3
+```
+
+## 💡 Usage
+
+1. **Start the Application**:
+```bash
+streamlit run src/pages/Home.py
+```
+
+2. **Load Your Data**:
+- Place CSV files in the `data/` directory
+- Use the data loader:
+```bash
+python scripts/load.py
+```
+
+3. **Access the Interface**:
+- Local: `http://localhost:8501`
+- Network: `http://[your-ip]:8501`
+
+4. **Query Your Data**:
+The assistant supports various types of queries:
+- Overview questions: "What data is available?"
+- Statistical queries: "Show me the distribution of incidents by type"
+- Time-based analysis: "What's the trend over the last 6 months?"
+- Cross-tabulations: "Compare categories by volume"
+
+## 🔍 Advanced Features
+
+### Data Loading
+- Multiple encoding support (UTF-8, ISO-8859-1, CP1252)
+- Automatic delimiter detection (comma, semicolon)
+- Robust error handling with multiple fallback strategies
+- Automatic data type inference
+- Batch processing for large datasets
+
+### Visualization
+- Automatic chart type selection based on data structure
+- Interactive visualizations with Streamlit
+- Support for bar charts, line plots, and custom visualizations
+- Dynamic color schemes
+
+### Debug Panel
+- Real-time query logging
+- Performance metrics tracking
+- Error monitoring
+- State management visualization
+
+## 🛠️ Development
+
+### Adding New Features
+1. Follow the modular structure
+2. Update type hints
+3. Add appropriate logging
+4. Include error handling
+5. Update tests if applicable
+
+### Code Style
+- Use type hints for better code documentation
+- Follow PEP 8 standards
+- Document functions and classes
+- Use meaningful variable names
+- Include comprehensive error handling
+
+## 🔄 Continuous Improvement
+
+### Current Development Focus
+- [ ] Enhanced visualization options
+- [ ] Query caching system
+- [ ] Additional data source support
+- [ ] Improved error handling
+- [ ] Extended testing coverage
+
+### Future Plans
+- [ ] Real-time data processing
+- [ ] Custom visualization templates
+- [ ] Advanced query optimization
+- [ ] Multiple database support
+- [ ] Export functionality
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Add your changes
+4. Submit a pull request
+
+### Contribution Guidelines
+- Follow existing code structure
+- Add documentation
+- Include error handling
+- Maintain code style consistency
+- Write descriptive commit messages
+
+## 📄 License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
+
+## 👥 Author
+
+**Ronald Mego**
+- Portfolio: [ronaldmego.github.io](https://ronaldmego.github.io/)
+- GitHub: [@ronaldmego](https://github.com/ronaldmego)
+
+## 🙏 Acknowledgments
+
+- Family and supporters
+- Open source community
+- Documentation and feedback providers
+
+---
+
+For more information and updates, visit the [project repository](https://github.com/ronaldmego/data_assistant_ai).
+
+================================================
+File: /.env.example
+================================================
+# LLM Provider Configuration
+DEFAULT_LLM_PROVIDER=ollama
+DEFAULT_TEMPERATURE=0.7
+
+# OpenAI Configuration
+OPENAI_API_KEY=your_key_here
+
+# OpenAI Models Configuration
+# Format: MODEL_KEY|Display Name|Model ID|Priority(lower is default)
+OPENAI_DEFAULT_MODEL=gpt-4o-mini
+OPENAI_MODELS=gpt-4o-mini|GPT-4 Mini (Most Economic)|gpt-4o-mini|1;gpt-4o-mini-2024-07-18|GPT-4 Mini July|gpt-4o-mini-2024-07-18|2;gpt-4o-2024-08-06|GPT-4 Turbo August|gpt-4o-2024-08-06|3;gpt-4o|GPT-4 Turbo (High Performance)|gpt-4o|4
+OPENAI_DEFAULT_MODEL=gpt-4o-mini
+
+# Ollama Configuration
+OLLAMA_DEFAULT_MODEL=llama3.2
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODELS=llama3.2|Llama 3.2 Latest|llama3.2|1;llama3:8b-instruct-q8_0|Llama 3 8B Instruct|llama3:8b-instruct-q8_0|2
+
+# MySQL Configuration
+MYSQL_USER=your_user
+MYSQL_PASSWORD=your_password
+MYSQL_HOST=your_host
+MYSQL_DATABASE=your_database
+IGNORED_TABLES=table1,table2,table3
+
+================================================
+File: /docs/time_series_handling.md
+================================================
+# Data Handling Guide - Time Series Tables
+
+## Overview
+This document provides critical information about handling time-series data tables in the Quipu AI system, specifically for analyzing public procurement data ("ReportePCBienes") across multiple time periods.
+
+## Data Structure
+- The database contains monthly tables following the pattern `ReportePCBienesYYYYMM`
+- Each table represents one month of procurement data
+- All tables share identical schema structure as defined in `Diccionario_Datos_Bienes.pdf`
+
+## Important Data Handling Rules
+
+### 1. Table Unification
+When analyzing data across multiple periods, ALWAYS use UNION ALL to combine the tables into a single dataset. This approach:
+- Ensures comprehensive time-series analysis
+- Maintains data integrity across periods
+- Enables proper trend analysis and temporal comparisons
+
+### 2. Query Construction Guidelines
+When constructing SQL queries:
+- Use dynamic table selection based on the date range in question
+- Apply UNION ALL between period-specific tables
+- Maintain consistent column naming across unions
+- Always include temporal context in aggregations
+
+### 3. Sample Query Pattern
+```sql
+SELECT 
+    column1, 
+    column2,
+    -- other columns
+    COUNT(*) as total,
+    SUM(amount) as sum_amount
+FROM (
+    SELECT * FROM ReportePCBienes202201
+    UNION ALL
+    SELECT * FROM ReportePCBienes202202
+    -- Add additional periods as needed
+) combined_data
+GROUP BY column1, column2
+```
+
+## Best Practices
+
+### Time Period Handling
+1. Always consider the full time range available in the data
+2. Use appropriate temporal aggregations (monthly, quarterly, yearly)
+3. Include year-over-year comparisons when relevant
+
+### Performance Optimization
+1. Apply filters before UNION ALL operations
+2. Use appropriate indexing strategies
+3. Consider materialized views for common queries
+
+### Data Consistency
+1. Verify consistent data types across periods
+2. Handle NULL values uniformly
+3. Standardize date formats across all tables
+
+## Important Context Rules for Query Generation
+
+When generating SQL queries:
+1. NEVER query individual period tables separately when analyzing trends
+2. ALWAYS use UNION ALL for multi-period analysis
+3. Include appropriate date range filters in subqueries
+4. Maintain consistent column aliases across UNION operations
+
+## Example Analysis Patterns
+
+### 1. Time Series Analysis
+```sql
+SELECT 
+    DATE_FORMAT(FECHA_PROCESO, '%Y-%m') as period,
+    COUNT(*) as transaction_count,
+    SUM(TOTAL) as total_amount
+FROM (
+    -- Use UNION ALL across all relevant period tables
+) combined_data
+GROUP BY DATE_FORMAT(FECHA_PROCESO, '%Y-%m')
+ORDER BY period
+```
+
+### 2. Comparative Analysis
+```sql
+SELECT 
+    YEAR(FECHA_PROCESO) as year,
+    MONTH(FECHA_PROCESO) as month,
+    COUNT(*) as orders,
+    SUM(TOTAL) as total_amount
+FROM (
+    -- UNION ALL of relevant tables
+) combined_data
+GROUP BY YEAR(FECHA_PROCESO), MONTH(FECHA_PROCESO)
+```
+
+## Implementation Notes
+
+1. When receiving questions about:
+   - Trends
+   - Time-based comparisons
+   - Historical analysis
+   - Aggregate statistics
+   ALWAYS use UNION ALL to combine relevant period tables
+
+2. Key metrics should be calculated across the entire dataset, not individual periods
+
+3. Time-based filters should be applied after table unification, not before
+
+Remember: Treat all period tables as a single continuous dataset for any analytical query.
+
+================================================
+File: /scripts/mysql/mysql_check.py
+================================================
+# mysql_check.py
+import mysql.connector
+from dotenv import load_dotenv
+import os
+
+def check_mysql_connection():
+    """
+    Verifica la conexión a MySQL y muestra información detallada
+    """
+    # Cargar variables de entorno
+    load_dotenv()
+    
+    # Obtener credenciales
+    config = {
+        'user': os.getenv('MYSQL_USER'),
+        'password': os.getenv('MYSQL_PASSWORD'),
+        'host': os.getenv('MYSQL_HOST'),
+        'database': os.getenv('MYSQL_DATABASE')
+    }
+    
+    print("\nVerificando conexión a MySQL...")
+    print(f"Host: {config['host']}")
+    print(f"Database: {config['database']}")
+    print(f"User: {config['user']}")
+    
+    try:
+        # Intentar conexión con parámetros adicionales
+        config.update({
+            'raise_on_warnings': True,
+            'connection_timeout': 10,
+            'auth_plugin': 'mysql_native_password',
+            'charset': 'utf8mb4',
+            'use_unicode': True
+        })
+        
+        # Intentar conexión
+        conn = mysql.connector.connect(**config)
+        
+        if conn.is_connected():
+            db_info = conn.get_server_info()
+            cursor = conn.cursor()
+            
+            # Obtener versión de MySQL
+            cursor.execute("SELECT VERSION()")
+            version = cursor.fetchone()[0]
+            
+            # Obtener tablas existentes
+            cursor.execute("SHOW TABLES")
+            tables = cursor.fetchall()
+            
+            print("\n✅ Conexión exitosa!")
+            print(f"MySQL versión: {version}")
+            print(f"Servidor: {db_info}")
+            
+            if tables:
+                print("\nTablas encontradas:")
+                for table in tables:
+                    cursor.execute(f"SELECT COUNT(*) FROM {table[0]}")
+                    count = cursor.fetchone()[0]
+                    print(f"- {table[0]}: {count} registros")
+            else:
+                print("\nNo se encontraron tablas en la base de datos.")
+                
+            cursor.close()
+            conn.close()
+            
+        else:
+            print("❌ No se pudo establecer conexión.")
+            
+    except mysql.connector.Error as e:
+        print("\n❌ Error de conexión:")
+        print(f"Error: {e}")
+        print("\nVerifica que:")
+        print("1. El servidor MySQL esté corriendo")
+        print("2. Las credenciales en .env sean correctas")
+        print("3. La base de datos exista")
+        print("4. El usuario tenga los permisos necesarios")
+
+if __name__ == "__main__":
+    check_mysql_connection()
+
+================================================
+File: /scripts/mysql/test_load.py
+================================================
+# test_load.py
+import os
+import mysql.connector
+from mysql.connector import Error
+from dotenv import load_dotenv
+import pandas as pd
+import logging
+
+# Configurar logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('test_load.log')
+    ]
+)
+logger = logging.getLogger(__name__)
+
+def verify_database_permissions(cursor):
+    """Verificar permisos de base de datos"""
+    try:
+        logger.info("Verificando permisos...")
+        
+        # Verificar privilegios del usuario
+        cursor.execute("SHOW GRANTS")
+        grants = cursor.fetchall()
+        for grant in grants:
+            logger.info(f"Grant: {grant[0]}")
+
+        # Verificar base de datos actual
+        cursor.execute("SELECT DATABASE()")
+        db = cursor.fetchone()
+        logger.info(f"Base de datos actual: {db[0]}")
+
+        return True
+    except Error as e:
+        logger.error(f"Error verificando permisos: {str(e)}")
+        return False
+
+def test_connection():
+    """Prueba básica de conexión y operaciones"""
+    conn = None
+    cursor = None
+    
+    try:
+        # Cargar variables de entorno
+        load_dotenv()
+        
+        # Configuración de la base de datos
+        config = {
+            'user': os.getenv('MYSQL_USER'),
+            'password': os.getenv('MYSQL_PASSWORD'),
+            'host': os.getenv('MYSQL_HOST'),
+            'database': os.getenv('MYSQL_DATABASE'),
+            'raise_on_warnings': True,
+            'auth_plugin': 'mysql_native_password'
+        }
+        
+        logger.info("Intentando conectar a MySQL...")
+        logger.info(f"Host: {config['host']}")
+        logger.info(f"Database: {config['database']}")
+        logger.info(f"User: {config['user']}")
+        
+        # Conectar a MySQL
+        conn = mysql.connector.connect(**config)
+        cursor = conn.cursor(buffered=True)
+        
+        logger.info("Conexión exitosa!")
+        
+        # Verificar permisos
+        if not verify_database_permissions(cursor):
+            raise Exception("Error verificando permisos")
+        
+        # 1. Crear tabla de prueba
+        logger.info("Creando tabla de prueba...")
+        create_table_sql = """
+        CREATE TABLE IF NOT EXISTS test_carga (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            FECHA_PROCESO DATETIME,
+            RUC_PROVEEDOR VARCHAR(11),
+            MONTO DECIMAL(15,2),
+            DESCRIPCION VARCHAR(500)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        """
+        
+        # Intentar crear la tabla sin DROP primero
+        cursor.execute(create_table_sql)
+        conn.commit()
+        logger.info("Tabla creada exitosamente")
+        
+        # 2. Insertar datos de prueba
+        logger.info("Insertando datos de prueba...")
+        insert_sql = """
+        INSERT INTO test_carga (FECHA_PROCESO, RUC_PROVEEDOR, MONTO, DESCRIPCION)
+        VALUES (NOW(), %s, %s, %s)
+        """
+        test_data = [
+            ('20123456789', 1000.50, 'Prueba 1'),
+            ('20987654321', 2500.75, 'Prueba 2')
+        ]
+        cursor.executemany(insert_sql, test_data)
+        conn.commit()
+        logger.info("Datos insertados exitosamente")
+        
+        # 3. Verificar los datos
+        logger.info("Verificando datos insertados...")
+        cursor.execute("SELECT * FROM test_carga")
+        rows = cursor.fetchall()
+        for row in rows:
+            logger.info(f"Row: {row}")
+        
+        # 4. Leer un archivo CSV real
+        logger.info("Intentando leer el primer archivo CSV...")
+        data_dir = os.path.join(os.getcwd(), 'data')
+        csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
+        
+        if csv_files:
+            test_file = os.path.join(data_dir, csv_files[0])
+            logger.info(f"Leyendo archivo: {test_file}")
+            
+            df = pd.read_csv(
+                test_file,
+                encoding='latin1',
+                sep=';',
+                nrows=5  # Solo leer 5 filas para prueba
+            )
+            logger.info(f"CSV leído exitosamente. Columnas encontradas: {list(df.columns)}")
+            logger.info(f"Primeras 5 filas:\n{df.head()}")
+        
+        # 5. Limpiar - ahora con más cuidado
+        logger.info("Intentando eliminar tabla de prueba...")
+        try:
+            cursor.execute("SELECT COUNT(*) FROM test_carga")
+            count = cursor.fetchone()[0]
+            logger.info(f"Registros en la tabla antes de eliminar: {count}")
+            
+            cursor.execute("DROP TABLE test_carga")
+            conn.commit()
+            logger.info("Tabla eliminada exitosamente")
+        except Error as e:
+            logger.error(f"Error eliminando tabla: {str(e)}")
+        
+        logger.info("¡Prueba completada exitosamente!")
+        
+    except Exception as e:
+        logger.error(f"Error durante la prueba: {str(e)}", exc_info=True)
+        raise
+        
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
+            logger.info("Conexión cerrada")
+
+if __name__ == "__main__":
+    test_connection()
+
+================================================
+File: /scripts/mysql/load_universal.py
+================================================
+# enhanced_loader.py
+import os
+import sys
+import pandas as pd
+import numpy as np
+import mysql.connector
+from datetime import datetime
+from typing import Dict, List, Tuple, Any
+import logging
+from dotenv import load_dotenv
+
+class DataValidator:
+    """Clase para validación y limpieza de datos"""
+    
+    @staticmethod
+    def detect_date_format(series: pd.Series) -> str:
+        """Detecta el formato de fecha más común en una serie"""
+        common_formats = [
+            '%Y-%m-%d', '%d-%m-%Y', '%m-%d-%Y',
+            '%Y/%m/%d', '%d/%m/%Y', '%m/%d/%Y',
+            '%Y%m%d'
+        ]
+        
+        for date_format in common_formats:
+            try:
+                pd.to_datetime(series.dropna().iloc[0], format=date_format)
+                return date_format
+            except (ValueError, IndexError):
+                continue
+        return None
+
+    @staticmethod
+    def infer_column_type(series: pd.Series) -> Tuple[str, float]:
+        """
+        Infiere el tipo de datos de una columna y retorna el tipo SQL correspondiente
+        junto con el porcentaje de valores válidos
+        """
+        # Eliminar valores nulos para el análisis
+        non_null = series.dropna()
+        if len(non_null) == 0:
+            return 'TEXT', 100.0
+
+        # Intentar convertir a numérico
+        numeric_conversion = pd.to_numeric(non_null, errors='coerce')
+        if numeric_conversion.notna().all():
+            # Verificar si son enteros
+            if (numeric_conversion % 1 == 0).all():
+                if numeric_conversion.max() > 2147483647 or numeric_conversion.min() < -2147483648:
+                    return 'BIGINT', 100.0
+                return 'INT', 100.0
+            return 'DOUBLE', 100.0
+
+        # Intentar convertir a fecha
+        date_format = DataValidator.detect_date_format(non_null)
+        if date_format:
+            try:
+                pd.to_datetime(non_null, format=date_format)
+                return 'DATETIME', 100.0
+            except ValueError:
+                pass
+
+        # Si no es número ni fecha, usar TEXT
+        # Calcular el porcentaje de valores que son strings válidos
+        valid_strings = non_null.astype(str).str.len() <= 255
+        valid_percentage = (valid_strings.sum() / len(non_null)) * 100
+        
+        if valid_percentage < 100:
+            return 'TEXT', valid_percentage
+        return 'TEXT', 100.0
+
+class CSVLoader:
+    """Clase principal para cargar CSVs a MySQL"""
+    
+    def __init__(self, config: Dict[str, str]):
+        self.config = config
+        self.setup_logging()
+        self.validator = DataValidator()
+        self.connection = None
+        self.cursor = None
+
+    def setup_logging(self):
+        """Configura el sistema de logging"""
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler('csv_loader.log'),
+                logging.StreamHandler(sys.stdout)
+            ]
+        )
+        self.logger = logging.getLogger(__name__)
+
+    def connect_to_database(self):
+        """Establece conexión con la base de datos"""
+        try:
+            self.connection = mysql.connector.connect(**self.config)
+            self.cursor = self.connection.cursor()
+            self.logger.info("Conexión a MySQL establecida exitosamente")
+        except mysql.connector.Error as err:
+            self.logger.error(f"Error al conectar a MySQL: {err}")
+            raise
+
+    def clean_column_name(self, column: str) -> str:
+        """Limpia y valida nombres de columnas"""
+        clean_name = ''.join(c if c.isalnum() else '_' for c in str(column))
+        if clean_name[0].isdigit():
+            clean_name = 'col_' + clean_name
+        return clean_name.lower()
+
+    def analyze_csv(self, df: pd.DataFrame) -> Dict[str, Dict[str, Any]]:
+        """Analiza el DataFrame y retorna información sobre los tipos de datos"""
+        column_info = {}
+        
+        for column in df.columns:
+            sql_type, valid_percentage = self.validator.infer_column_type(df[column])
+            missing_percentage = (df[column].isna().sum() / len(df)) * 100
+            
+            column_info[column] = {
+                'sql_type': sql_type,
+                'valid_percentage': valid_percentage,
+                'missing_percentage': missing_percentage,
+                'clean_name': self.clean_column_name(column)
+            }
+            
+        return column_info
+
+    def create_table(self, table_name: str, column_info: Dict[str, Dict[str, Any]]):
+        """Crea la tabla en MySQL con los tipos de datos inferidos"""
+        columns = []
+        for col, info in column_info.items():
+            clean_name = info['clean_name']
+            sql_type = info['sql_type']
+            columns.append(f"`{clean_name}` {sql_type}")
+
+        # Agregar id como primary key
+        columns.insert(0, "id INT AUTO_INCREMENT PRIMARY KEY")
+        
+        create_table_query = f"""
+        CREATE TABLE IF NOT EXISTS `{table_name}` (
+            {', '.join(columns)}
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        """
+        
+        self.cursor.execute(f"DROP TABLE IF EXISTS `{table_name}`")
+        self.cursor.execute(create_table_query)
+        self.logger.info(f"Tabla '{table_name}' creada exitosamente")
+
+    def attempt_csv_read(self, file_path: str) -> Tuple[pd.DataFrame, dict]:
+        """
+        Intenta leer un CSV usando diferentes estrategias, retorna el DataFrame y la estrategia usada
+        """
+        strategies = [
+            # Estrategia 1: Lectura estándar
+            {'encoding': 'utf-8'},
+            {'encoding': 'ISO-8859-1'},
+            {'encoding': 'cp1252'},
+            
+            # Estrategia 2: Probar diferentes separadores
+            {'encoding': 'utf-8', 'sep': ','},
+            {'encoding': 'utf-8', 'sep': ';'},
+            {'encoding': 'ISO-8859-1', 'sep': ';'},
+            
+            # Estrategia 3: Manejo de líneas problemáticas
+            {'encoding': 'utf-8', 'on_bad_lines': 'skip'},
+            {'encoding': 'ISO-8859-1', 'on_bad_lines': 'skip'},
+            {'encoding': 'utf-8', 'sep': ';', 'on_bad_lines': 'skip'},
+            {'encoding': 'ISO-8859-1', 'sep': ';', 'on_bad_lines': 'skip'},
+            
+            # Estrategia 4: Modo de emergencia con más opciones
+            {
+                'encoding': 'ISO-8859-1',
+                'sep': ';',
+                'on_bad_lines': 'skip',
+                'low_memory': False,
+                'quoting': 3  # QUOTE_NONE
+            }
+        ]
+
+        errors = []
+        for i, strategy in enumerate(strategies, 1):
+            try:
+                self.logger.info(f"Intentando estrategia {i} con parámetros: {strategy}")
+                df = pd.read_csv(file_path, **strategy)
+                
+                # Verificar que el DataFrame no esté vacío y tenga columnas
+                if len(df) > 0 and len(df.columns) > 1:
+                    self.logger.info(f"Lectura exitosa con estrategia {i}")
+                    return df, strategy
+                else:
+                    errors.append(f"Estrategia {i}: DataFrame vacío o sin columnas suficientes")
+            except Exception as e:
+                errors.append(f"Estrategia {i}: {str(e)}")
+                continue
+
+        # Si llegamos aquí, intentamos una última estrategia más agresiva
+        try:
+            self.logger.warning("Intentando estrategia de último recurso con engine='python'")
+            df = pd.read_csv(
+                file_path,
+                encoding='ISO-8859-1',
+                sep=None,  # intentar detectar el separador
+                engine='python',
+                on_bad_lines='skip',
+                low_memory=False,
+                quoting=3
+            )
+            if len(df) > 0:
+                return df, {"engine": "python", "sep": "auto-detected"}
+        except Exception as e:
+            errors.append(f"Estrategia final: {str(e)}")
+
+        # Si todas las estrategias fallan, registrar los errores y lanzar excepción
+        error_log = "\n".join(errors)
+        self.logger.error(f"Todas las estrategias de lectura fallaron:\n{error_log}")
+        raise ValueError("No se pudo leer el archivo CSV con ninguna estrategia")
+
+    def load_csv(self, file_path: str) -> bool:
+        """Carga un archivo CSV a MySQL"""
+        try:
+            self.logger.info(f"Iniciando carga de {file_path}")
+            
+            # Intentar leer el CSV con diferentes estrategias
+            df, strategy_used = self.attempt_csv_read(file_path)
+            
+            # Registrar información sobre la estrategia exitosa
+            self.logger.info(f"Archivo leído exitosamente usando: {strategy_used}")
+            self.logger.info(f"Dimensiones iniciales: {df.shape}")
+            
+            # Continuar con el proceso de limpieza y carga...
+            initial_rows = len(df)
+            
+            # Limpiar datos
+            df = df.replace({np.nan: None, 'nan': None, 'NULL': None, '': None})
+            df = df.dropna(how='all')
+            df = df.drop_duplicates()
+            
+            # Registrar estadísticas de limpieza
+            rows_after_cleaning = len(df)
+            self.logger.info(f"""
+            Estadísticas de limpieza:
+            - Filas iniciales: {initial_rows}
+            - Filas después de limpieza: {rows_after_cleaning}
+            - Filas eliminadas: {initial_rows - rows_after_cleaning}
+            """)
+
+            # Obtener nombre de la tabla del nombre del archivo
+            table_name = os.path.splitext(os.path.basename(file_path))[0].lower()
+            
+            # Analizar tipos de columnas y crear tabla
+            column_info = self.analyze_csv(df)
+            self.create_table(table_name, column_info)
+            
+            # Preparar los datos para inserción
+            clean_columns = [info['clean_name'] for info in column_info.values()]
+            df.columns = clean_columns
+            
+            # Insertar datos por lotes
+            batch_size = 1000
+            total_inserted = 0
+            
+            # Preparar la consulta de inserción
+            placeholders = ', '.join(['%s'] * len(clean_columns))
+            insert_query = f"INSERT INTO `{table_name}` ({', '.join(f'`{col}`' for col in clean_columns)}) VALUES ({placeholders})"
+            
+            for i in range(0, len(df), batch_size):
+                try:
+                    batch = df.iloc[i:i + batch_size]
+                    values = [tuple(row) for _, row in batch.iterrows()]
+                    self.cursor.executemany(insert_query, values)
+                    self.connection.commit()
+                    total_inserted += len(batch)
+                    self.logger.info(f"Insertados {total_inserted} de {len(df)} registros...")
+                except Exception as e:
+                    self.logger.error(f"Error en el lote {i}-{i+batch_size}: {e}")
+                    self.connection.rollback()
+                    continue
+
+            self.logger.info(f"Importación completada. Total de registros insertados: {total_inserted}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error al cargar {file_path}: {str(e)}")
+            return False
+
+    def process_directory(self, directory: str):
+        """Procesa todos los CSVs en un directorio"""
+        if not os.path.isdir(directory):
+            self.logger.error(f"El directorio {directory} no existe")
+            return
+        
+        csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
+        if not csv_files:
+            self.logger.warning("No se encontraron archivos CSV")
+            return
+        
+        successful_loads = 0
+        failed_loads = 0
+        
+        for csv_file in csv_files:
+            full_path = os.path.join(directory, csv_file)
+            if self.load_csv(full_path):
+                successful_loads += 1
+            else:
+                failed_loads += 1
+        
+        self.logger.info(f"""
+        Resumen de procesamiento:
+        - CSVs procesados exitosamente: {successful_loads}
+        - CSVs con errores: {failed_loads}
+        - Total de archivos: {len(csv_files)}
+        """)
+
+def main():
+    # Cargar variables de entorno
+    load_dotenv()
+    
+    config = {
+        'user': os.getenv('MYSQL_USER'),
+        'password': os.getenv('MYSQL_PASSWORD'),
+        'host': os.getenv('MYSQL_HOST'),
+        'database': os.getenv('MYSQL_DATABASE')
+    }
+    
+    loader = CSVLoader(config)
+    try:
+        loader.connect_to_database()
+        loader.process_directory('data')
+    finally:
+        if loader.cursor:
+            loader.cursor.close()
+        if loader.connection:
+            loader.connection.close()
+
+if __name__ == "__main__":
+    main()
+
+================================================
+File: /scripts/mysql/load-backup.py
+================================================
+# Load files ReportePCBienesYYYYMM
+import os
+import mysql.connector
+from mysql.connector import Error
+from dotenv import load_dotenv
+import pandas as pd
+import logging
+from typing import List, Dict, Optional
+from pathlib import Path
+
+# Configurar logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('csv_loader.log')
+    ]
+)
+logger = logging.getLogger(__name__)
+
+class CSVLoader:
+    def __init__(self):
+        # Cargar variables de entorno
+        load_dotenv()
+        
+        self.config = {
+            'user': os.getenv('MYSQL_USER'),
+            'password': os.getenv('MYSQL_PASSWORD'),
+            'host': os.getenv('MYSQL_HOST'),
+            'database': os.getenv('MYSQL_DATABASE'),
+            'raise_on_warnings': True,
+            'auth_plugin': 'mysql_native_password'
+        }
+        
+        self.conn = None
+        self.cursor = None
+
+    def connect(self) -> bool:
+        """Establece conexión con la base de datos"""
+        try:
+            logger.info("Intentando conectar a MySQL...")
+            self.conn = mysql.connector.connect(**self.config)
+            self.cursor = self.conn.cursor(buffered=True)
+            logger.info("Conexión exitosa!")
+            return True
+        except Error as e:
+            logger.error(f"Error de conexión: {str(e)}")
+            return False
+
+    def verify_table_exists(self, table_name: str) -> bool:
+        """Verifica si una tabla existe"""
+        try:
+            self.cursor.execute(f"SHOW TABLES LIKE '{table_name}'")
+            return self.cursor.fetchone() is not None
+        except Error as e:
+            logger.error(f"Error verificando tabla {table_name}: {str(e)}")
+            return False
+
+    def create_table_from_df(self, table_name: str, df: pd.DataFrame) -> bool:
+        """Crea una tabla basada en la estructura del DataFrame"""
+        try:
+            # Mapeo específico para las columnas de Perú Compras
+            column_mapping = {
+                'FECHA_PROCESO': 'DATETIME',
+                'RUC_PROVEEDOR': 'VARCHAR(11)',
+                'PROVEEDOR': 'VARCHAR(255)',
+                'RUC_ENTIDAD': 'VARCHAR(11)',
+                'ENTIDAD': 'VARCHAR(255)',
+                'TIPO_PROCEDIMIENTO': 'VARCHAR(50)',
+                'ORDEN_ELECTRÓNICA': 'VARCHAR(100)',
+                'ORDEN_ELECTRÓNICA_GENERADA': 'VARCHAR(500)',
+                'ESTADO_ORDEN_ELECTRÓNICA': 'VARCHAR(50)',
+                'DOCUMENTO_ESTADO_OCAM': 'VARCHAR(500)',
+                'FECHA_FORMALIZACIÓN': 'DATETIME',
+                'FECHA_ÚLTIMO_ESTADO': 'DATETIME',
+                'SUB_TOTAL': 'DECIMAL(15,2)',
+                'IGV': 'DECIMAL(15,2)',
+                'TOTAL': 'DECIMAL(15,2)',
+                'ORDEN_DIGITALIZADA': 'VARCHAR(500)',
+                'DESCRIPCIÓN_ESTADO': 'VARCHAR(255)',
+                'DESCRIPCIÓN_CESIÓN_DERECHOS': 'VARCHAR(255)',
+                'ACUERDO_MARCO': 'VARCHAR(255)'
+            }
+            
+            # Mapeo por defecto para columnas no especificadas
+            default_type_mapping = {
+                'int64': 'BIGINT',
+                'float64': 'DECIMAL(15,2)',
+                'object': 'VARCHAR(255)',
+                'datetime64[ns]': 'DATETIME',
+                'bool': 'BOOLEAN'
+            }
+            
+            # Crear la definición de columnas
+            columns = []
+            for col in df.columns:
+                # Limpiar nombre de columna
+                clean_col = col.replace(" ", "_").replace("-", "_").lower()
+                # Obtener tipo de dato (usar mapeo específico si existe)
+                sql_type = column_mapping.get(col, None)
+                if sql_type is None:
+                    col_type = str(df[col].dtype)
+                    sql_type = default_type_mapping.get(col_type, 'TEXT')
+                
+                columns.append(f"`{clean_col}` {sql_type}")
+
+            # Crear la tabla si no existe
+            create_table_sql = f"""
+            CREATE TABLE IF NOT EXISTS `{table_name}` (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                {', '.join(columns)}
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            """
+            
+            self.cursor.execute(create_table_sql)
+            self.conn.commit()
+            logger.info(f"Tabla {table_name} creada o verificada exitosamente")
+            return True
+            
+        except Error as e:
+            logger.error(f"Error creando tabla {table_name}: {str(e)}")
+            return False
+
+    def load_csv_to_table(self, csv_path: str) -> bool:
+        """Carga un archivo CSV a una tabla en MySQL"""
+        try:
+            # Obtener nombre de tabla del nombre del archivo
+            table_name = Path(csv_path).stem.lower()
+            
+            # Configuración específica para los CSVs de Perú Compras
+            df = None
+            try:
+                # Primero leer el CSV
+                df = pd.read_csv(
+                    csv_path,
+                    encoding='latin1',
+                    sep=';',
+                    decimal=',',
+                    thousands='.'
+                )
+                
+                # Luego convertir las columnas de fecha usando to_datetime
+                date_columns = ['FECHA_PROCESO', 'FECHA_FORMALIZACIÓN', 'FECHA_ÚLTIMO_ESTADO']
+                for col in date_columns:
+                    if col in df.columns:
+                        df[col] = pd.to_datetime(df[col], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+                
+                # Reemplazar valores NaN/None por NULL para MySQL
+                df = df.replace({pd.NA: None, pd.NaT: None})
+                df = df.where(pd.notnull(df), None)
+                
+                # Logging de estadísticas
+                logger.info(f"""
+                CSV leído exitosamente:
+                - Número total de registros: {len(df)}
+                - Columnas encontradas: {len(df.columns)}
+                - Memoria utilizada: {df.memory_usage(deep=True).sum() / 1024 / 1024:.2f} MB
+                """)
+                
+            except Exception as e:
+                logger.error(f"Error en la lectura inicial: {str(e)}")
+                # Intento de recuperación con configuración más flexible
+                try:
+                    df = pd.read_csv(
+                        csv_path,
+                        encoding='latin1',
+                        sep=';',
+                        on_bad_lines='skip'
+                    )
+                    # Reemplazar valores NaN/None por NULL para MySQL
+                    df = df.replace({pd.NA: None, pd.NaT: None})
+                    df = df.where(pd.notnull(df), None)
+                    logger.info("CSV leído en modo de recuperación")
+                except Exception as e:
+                    logger.error(f"Error en la lectura de recuperación: {str(e)}")
+            
+            if df is None:
+                raise Exception("No se pudo leer el archivo CSV con ninguna codificación")
+
+            # Crear tabla si no existe
+            if not self.create_table_from_df(table_name, df):
+                return False
+
+            # Preparar datos para inserción
+            columns = [col.replace(" ", "_").replace("-", "_").lower() for col in df.columns]
+            placeholders = ", ".join(["%s"] * len(columns))
+            
+            # Insertar datos en lotes
+            batch_size = 1000
+            for i in range(0, len(df), batch_size):
+                try:
+                    batch = df.iloc[i:i + batch_size]
+                    # Convertir el batch a una lista de tuplas, reemplazando NaN por None
+                    values = [tuple(None if pd.isna(x) else x for x in row) for row in batch.values]
+                    
+                    insert_sql = f"""
+                    INSERT INTO `{table_name}` 
+                    (`{'`, `'.join(columns)}`) 
+                    VALUES ({placeholders})
+                    """
+                    
+                    self.cursor.executemany(insert_sql, values)
+                    self.conn.commit()
+                    logger.info(f"Insertado lote {i//batch_size + 1} de {len(df)//batch_size + 1}")
+                except Exception as e:
+                    logger.error(f"Error insertando lote {i//batch_size + 1}: {str(e)}")
+                    continue
+
+            logger.info(f"Archivo {csv_path} cargado exitosamente")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error cargando archivo {csv_path}: {str(e)}")
+            return False
+
+    def process_directory(self, directory: str = 'data'):
+        """Procesa todos los archivos CSV en un directorio"""
+        try:
+            # Verificar que el directorio existe
+            if not os.path.exists(directory):
+                raise Exception(f"El directorio {directory} no existe")
+
+            # Obtener lista de archivos CSV
+            csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
+            if not csv_files:
+                logger.warning(f"No se encontraron archivos CSV en {directory}")
+                return
+
+            # Conectar a la base de datos
+            if not self.connect():
+                return
+
+            # Procesar cada archivo
+            successful = 0
+            failed = 0
+            
+            for csv_file in csv_files:
+                csv_path = os.path.join(directory, csv_file)
+                if self.load_csv_to_table(csv_path):
+                    successful += 1
+                else:
+                    failed += 1
+
+            logger.info(f"""
+            Resumen del proceso:
+            - Archivos procesados exitosamente: {successful}
+            - Archivos con errores: {failed}
+            - Total de archivos: {len(csv_files)}
+            """)
+
+        except Exception as e:
+            logger.error(f"Error en el proceso: {str(e)}")
+        finally:
+            if self.cursor:
+                self.cursor.close()
+            if self.conn and self.conn.is_connected():
+                self.conn.close()
+                logger.info("Conexión cerrada")
+
+def main():
+    loader = CSVLoader()
+    loader.process_directory()
+
+if __name__ == "__main__":
+    main()
+
+================================================
+File: /scripts/mysql/init_db.py
+================================================
+# init_db.py
+import os
+import sys
+import mysql.connector
+from dotenv import load_dotenv
+
+def load_environment():
+    """Cargar variables de entorno y validar que existan las necesarias"""
+    load_dotenv()
+    required_vars = ['MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_HOST', 'MYSQL_DATABASE']
+    missing_vars = [var for var in required_vars if not os.getenv(var)]
+    
+    if missing_vars:
+        print(f"Error: Faltan las siguientes variables de entorno: {', '.join(missing_vars)}")
+        sys.exit(1)
+    
+    return {
+        'user': os.getenv('MYSQL_USER'),
+        'password': os.getenv('MYSQL_PASSWORD'),
+        'host': os.getenv('MYSQL_HOST')
+    }
+
+def create_database():
+    """Crear la base de datos si no existe"""
+    config = load_environment()
+    database_name = os.getenv('MYSQL_DATABASE')
+    
+    try:
+        conn = mysql.connector.connect(**config)
+        cursor = conn.cursor()
+        
+        # Crear base de datos si no existe
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database_name}")
+        print(f"Base de datos '{database_name}' creada o verificada exitosamente")
+        
+    except mysql.connector.Error as err:
+        print(f"Error al crear la base de datos: {err}")
+        sys.exit(1)
+    finally:
+        cursor.close()
+        conn.close()
+        print("Conexión cerrada")
+
+if __name__ == "__main__":
+    print("Iniciando creación de la base de datos...")
+    create_database()
+    print("Proceso finalizado")
+
+================================================
+File: /scripts/mysql/load.py
+================================================
+import os
+import mysql.connector
+from mysql.connector import Error
+from dotenv import load_dotenv
+import pandas as pd
+import logging
+from typing import List, Dict, Optional
+from pathlib import Path
+
+# Configurar logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('csv_loader.log')
+    ]
+)
+logger = logging.getLogger(__name__)
+
+class CSVLoader:
+    def __init__(self):
+        # Cargar variables de entorno
+        load_dotenv()
+        
+        self.config = {
+            'user': os.getenv('MYSQL_USER'),
+            'password': os.getenv('MYSQL_PASSWORD'),
+            'host': os.getenv('MYSQL_HOST'),
+            'database': os.getenv('MYSQL_DATABASE'),
+            'raise_on_warnings': True,
+            'auth_plugin': 'mysql_native_password'
+        }
+        
+        self.conn = None
+        self.cursor = None
+
+    def connect(self) -> bool:
+        """Establece conexión con la base de datos"""
+        try:
+            logger.info("Intentando conectar a MySQL...")
+            self.conn = mysql.connector.connect(**self.config)
+            self.cursor = self.conn.cursor(buffered=True)
+            logger.info("Conexión exitosa!")
+            return True
+        except Error as e:
+            logger.error(f"Error de conexión: {str(e)}")
+            return False
+
+    def verify_table_exists(self, table_name: str) -> bool:
+        """Verifica si una tabla existe"""
+        try:
+            self.cursor.execute(f"SHOW TABLES LIKE '{table_name}'")
+            return self.cursor.fetchone() is not None
+        except Error as e:
+            logger.error(f"Error verificando tabla {table_name}: {str(e)}")
+            return False
+
+    def create_table_from_df(self, table_name: str, df: pd.DataFrame) -> bool:
+        """Crea una tabla basada en la estructura del DataFrame"""
+        try:
+            # Mapeo específico para las columnas de Perú Compras
+            column_mapping = {
+                'FECHA_PROCESO': 'DATETIME',
+                'RUC_PROVEEDOR': 'VARCHAR(11)',
+                'PROVEEDOR': 'VARCHAR(255)',
+                'RUC_ENTIDAD': 'VARCHAR(11)',
+                'ENTIDAD': 'VARCHAR(255)',
+                'TIPO_PROCEDIMIENTO': 'VARCHAR(50)',
+                'ORDEN_ELECTRÓNICA': 'VARCHAR(100)',
+                'ORDEN_ELECTRÓNICA_GENERADA': 'VARCHAR(500)',
+                'ESTADO_ORDEN_ELECTRÓNICA': 'VARCHAR(50)',
+                'DOCUMENTO_ESTADO_OCAM': 'VARCHAR(500)',
+                'FECHA_FORMALIZACIÓN': 'DATETIME',
+                'FECHA_ÚLTIMO_ESTADO': 'DATETIME',
+                'SUB_TOTAL': 'DECIMAL(15,2)',
+                'IGV': 'DECIMAL(15,2)',
+                'TOTAL': 'DECIMAL(15,2)',
+                'ORDEN_DIGITALIZADA': 'VARCHAR(500)',
+                'DESCRIPCIÓN_ESTADO': 'VARCHAR(255)',
+                'DESCRIPCIÓN_CESIÓN_DERECHOS': 'VARCHAR(255)',
+                'ACUERDO_MARCO': 'VARCHAR(255)'
+            }
+            
+            # Mapeo por defecto para columnas no especificadas
+            default_type_mapping = {
+                'int64': 'BIGINT',
+                'float64': 'DECIMAL(15,2)',
+                'object': 'VARCHAR(255)',
+                'datetime64[ns]': 'DATETIME',
+                'bool': 'BOOLEAN'
+            }
+            
+            # Crear la definición de columnas
+            columns = []
+            for col in df.columns:
+                # Limpiar nombre de columna
+                clean_col = col.replace(" ", "_").replace("-", "_").lower()
+                # Obtener tipo de dato (usar mapeo específico si existe)
+                sql_type = column_mapping.get(col, None)
+                if sql_type is None:
+                    col_type = str(df[col].dtype)
+                    sql_type = default_type_mapping.get(col_type, 'TEXT')
+                
+                columns.append(f"`{clean_col}` {sql_type}")
+
+            # Crear la tabla si no existe con índice único
+            create_table_sql = f"""
+            CREATE TABLE IF NOT EXISTS `{table_name}` (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                {', '.join(columns)},
+                UNIQUE KEY `uk_orden_fecha` (`orden_electrónica`, `fecha_proceso`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            """
+            
+            self.cursor.execute(create_table_sql)
+            self.conn.commit()
+            logger.info(f"Tabla {table_name} creada o verificada exitosamente")
+            return True
+            
+        except Error as e:
+            logger.error(f"Error creando tabla {table_name}: {str(e)}")
+            return False
+
+    def load_csv_to_table(self, csv_path: str) -> bool:
+        """Carga un archivo CSV a una tabla en MySQL"""
+        try:
+            # Obtener nombre de tabla del nombre del archivo
+            table_name = Path(csv_path).stem.lower()
+            
+            # Configuración específica para los CSVs de Perú Compras
+            df = None
+            try:
+                # Primero leer el CSV
+                df = pd.read_csv(
+                    csv_path,
+                    encoding='latin1',
+                    sep=';',
+                    decimal=',',
+                    thousands='.'
+                )
+                
+                # Luego convertir las columnas de fecha usando to_datetime
+                date_columns = ['FECHA_PROCESO', 'FECHA_FORMALIZACIÓN', 'FECHA_ÚLTIMO_ESTADO']
+                for col in date_columns:
+                    if col in df.columns:
+                        df[col] = pd.to_datetime(df[col], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+                
+                # Reemplazar valores NaN/None por NULL para MySQL
+                df = df.replace({pd.NA: None, pd.NaT: None})
+                df = df.where(pd.notnull(df), None)
+                
+                total_registros = len(df)
+                logger.info(f"""
+                CSV leído exitosamente:
+                - Número total de registros: {total_registros}
+                - Columnas encontradas: {len(df.columns)}
+                - Memoria utilizada: {df.memory_usage(deep=True).sum() / 1024 / 1024:.2f} MB
+                """)
+                
+            except Exception as e:
+                logger.error(f"Error en la lectura inicial: {str(e)}")
+                return False
+
+            # Crear tabla si no existe
+            if not self.create_table_from_df(table_name, df):
+                return False
+
+            # Preparar datos para inserción
+            columns = [col.replace(" ", "_").replace("-", "_").lower() for col in df.columns]
+            placeholders = ", ".join(["%s"] * len(columns))
+            
+            # Insertar datos en lotes usando INSERT IGNORE
+            batch_size = 1000
+            registros_insertados = 0
+            registros_duplicados = 0
+            
+            for i in range(0, len(df), batch_size):
+                try:
+                    batch = df.iloc[i:i + batch_size]
+                    # Convertir el batch a una lista de tuplas, reemplazando NaN por None
+                    values = [tuple(None if pd.isna(x) else x for x in row) for row in batch.values]
+                    
+                    # Usar INSERT IGNORE para saltar duplicados
+                    insert_sql = f"""
+                    INSERT IGNORE INTO `{table_name}` 
+                    (`{'`, `'.join(columns)}`) 
+                    VALUES ({placeholders})
+                    """
+                    
+                    self.cursor.executemany(insert_sql, values)
+                    self.conn.commit()
+                    
+                    # Contar registros insertados vs duplicados
+                    registros_insertados += self.cursor.rowcount
+                    registros_duplicados = len(batch) - self.cursor.rowcount
+                    
+                    logger.info(f"Procesado lote {i//batch_size + 1} de {len(df)//batch_size + 1}")
+                except Exception as e:
+                    logger.error(f"Error insertando lote {i//batch_size + 1}: {str(e)}")
+                    continue
+
+            logger.info(f"""
+            Archivo {csv_path} procesado:
+            - Total registros en archivo: {total_registros}
+            - Registros nuevos insertados: {registros_insertados}
+            - Registros duplicados omitidos: {total_registros - registros_insertados}
+            """)
+            return True
+
+        except Exception as e:
+            logger.error(f"Error cargando archivo {csv_path}: {str(e)}")
+            return False
+
+    def process_directory(self, directory: str = 'data'):
+        """Procesa todos los archivos CSV en un directorio"""
+        try:
+            # Verificar que el directorio existe
+            if not os.path.exists(directory):
+                raise Exception(f"El directorio {directory} no existe")
+
+            # Obtener lista de archivos CSV
+            csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
+            if not csv_files:
+                logger.warning(f"No se encontraron archivos CSV en {directory}")
+                return
+
+            # Conectar a la base de datos
+            if not self.connect():
+                return
+
+            # Procesar cada archivo
+            successful = 0
+            failed = 0
+            
+            for csv_file in csv_files:
+                csv_path = os.path.join(directory, csv_file)
+                if self.load_csv_to_table(csv_path):
+                    successful += 1
+                else:
+                    failed += 1
+
+            logger.info(f"""
+            Resumen del proceso:
+            - Archivos procesados exitosamente: {successful}
+            - Archivos con errores: {failed}
+            - Total de archivos: {len(csv_files)}
+            """)
+
+        except Exception as e:
+            logger.error(f"Error en el proceso: {str(e)}")
+        finally:
+            if self.cursor:
+                self.cursor.close()
+            if self.conn and self.conn.is_connected():
+                self.conn.close()
+                logger.info("Conexión cerrada")
+
+def main():
+    loader = CSVLoader()
+    loader.process_directory()
+
+if __name__ == "__main__":
+    main()
+
+================================================
+File: /scripts/mysql/clean_csv.py
+================================================
+# clean_csv.py
+import os
+import logging
+from pathlib import Path
+from typing import Optional, List
+import csv
+
+# Configurar logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+def get_headers_from_file(reference_file: str) -> Optional[List[str]]:
+    """
+    Extrae los encabezados de un archivo CSV de referencia
+    
+    Args:
+        reference_file (str): Ruta al archivo CSV de referencia
+        
+    Returns:
+        Optional[List[str]]: Lista de encabezados o None si hay error
+    """
+    try:
+        with open(reference_file, 'r', encoding='latin1') as file:
+            # Leer primera línea y dividir por punto y coma
+            headers = next(csv.reader(file, delimiter=';'))
+            return [h.strip() for h in headers]  # Limpiar espacios en blanco
+    except Exception as e:
+        logger.error(f"Error leyendo encabezados del archivo de referencia: {str(e)}")
+        return None
+
+def clean_csv(input_file: str, reference_file: str) -> None:
+    """
+    Limpia un archivo CSV y reemplaza sus encabezados con los de un archivo de referencia
+    
+    Args:
+        input_file (str): Ruta al archivo CSV a limpiar
+        reference_file (str): Ruta al archivo CSV de referencia para los encabezados
+    """
+    try:
+        # Verificar que los archivos existen
+        for file in [input_file, reference_file]:
+            if not os.path.exists(file):
+                raise FileNotFoundError(f"No se encontró el archivo: {file}")
+        
+        logger.info(f"Iniciando limpieza de {input_file} usando encabezados de {reference_file}")
+        
+        # Obtener encabezados del archivo de referencia
+        headers = get_headers_from_file(reference_file)
+        if not headers:
+            raise ValueError("No se pudieron obtener los encabezados del archivo de referencia")
+        
+        # Leer el contenido del archivo a limpiar
+        with open(input_file, 'r', encoding='latin1') as file:
+            content = file.readlines()
+        
+        # Limpiar el contenido (ignorar la primera línea que contiene los encabezados)
+        cleaned_content = []
+        for i, line in enumerate(content):
+            if i > 0:  # Ignorar la primera línea (encabezados originales)
+                cleaned_line = (line
+                    .replace(';\t', ';')
+                    .replace(';  ', ';')
+                    .replace('; ', ';')
+                    .strip())
+                cleaned_content.append(cleaned_line)
+        
+        # Generar nombre del archivo de salida
+        input_path = Path(input_file)
+        output_file = input_path.with_stem(f"{input_path.stem}_cleaned")
+        
+        # Guardar el archivo limpio con los nuevos encabezados
+        with open(output_file, 'w', encoding='latin1', newline='') as file:
+            # Escribir encabezados
+            file.write(';'.join(headers) + '\n')
+            # Escribir contenido limpio
+            file.write('\n'.join(cleaned_content))
+        
+        logger.info(f"""
+        Archivo procesado exitosamente:
+        - Archivo original: {input_file}
+        - Archivo de referencia: {reference_file}
+        - Archivo limpio: {output_file}
+        - Encabezados utilizados: {headers}
+        """)
+        
+    except Exception as e:
+        logger.error(f"Error procesando archivo: {str(e)}")
+        raise
+
+if __name__ == "__main__":
+    # Especificar archivos
+    input_csv = "data/ReportePCBienes202403.csv"
+    reference_csv = "data/ReportePCBienes202404.csv"
+    clean_csv(input_csv, reference_csv)
+
+================================================
+File: /scripts/mysql/csv_diagnostic.py
+================================================
+# csv_diagnostic.py
+import os
+import pandas as pd
+from pathlib import Path
+
+def diagnose_csv_loading():
+    """
+    Diagnóstico paso a paso del proceso de carga de CSV
+    """
+    print("\n🔍 Iniciando diagnóstico de carga de CSV...")
+
+    # 1. Verificar directorio data
+    data_dir = 'data'
+    print(f"\n1. Verificando directorio 'data':")
+    if os.path.exists(data_dir):
+        print(f"✅ Directorio '{data_dir}' encontrado")
+        print(f"   Ruta absoluta: {os.path.abspath(data_dir)}")
+    else:
+        print(f"❌ Directorio '{data_dir}' no encontrado")
+        return
+
+    # 2. Buscar archivos CSV
+    print("\n2. Buscando archivos CSV:")
+    csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
+    if csv_files:
+        print(f"✅ Se encontraron {len(csv_files)} archivos CSV:")
+        for file in csv_files:
+            file_path = os.path.join(data_dir, file)
+            size = os.path.getsize(file_path)
+            print(f"   - {file} ({size/1024:.2f} KB)")
+    else:
+        print("❌ No se encontraron archivos CSV")
+        return
+
+    # 3. Intentar leer cada archivo
+    print("\n3. Intentando leer cada archivo:")
+    for file in csv_files:
+        file_path = os.path.join(data_dir, file)
+        print(f"\nArchivo: {file}")
+        
+        success = False
+        # Intentar con diferentes combinaciones de encoding y separador
+        encodings = ['utf-8', 'latin1', 'iso-8859-1', 'cp1252']
+        separators = [';', ',', '|', '\t']
+        
+        for encoding in encodings:
+            if success:
+                break
+                
+            for sep in separators:
+                try:
+                    # Primero leemos solo unas pocas líneas para detectar problemas
+                    df = pd.read_csv(file_path, encoding=encoding, sep=sep, nrows=5)
+                    
+                    # Si llegamos aquí, la lectura fue exitosa
+                    success = True
+                    print(f"✅ Lectura exitosa con:")
+                    print(f"   - Encoding: {encoding}")
+                    print(f"   - Separador: '{sep}'")
+                    print(f"   - Columnas encontradas: {len(df.columns)}")
+                    print("\n   Nombres de columnas:")
+                    for col in df.columns:
+                        print(f"      - {col}")
+                    
+                    # Verificar consistencia en el número de campos
+                    with open(file_path, 'r', encoding=encoding) as f:
+                        lines = [line.strip() for line in f.readlines()[:10]]
+                        fields_per_line = [len(line.split(sep)) for line in lines if line]
+                        
+                    if len(set(fields_per_line)) > 1:
+                        print("\n⚠️ Advertencia: Número inconsistente de campos entre líneas:")
+                        for i, count in enumerate(fields_per_line):
+                            print(f"      Línea {i+1}: {count} campos")
+                    
+                    print(f"\n   Muestra de datos:")
+                    print(df.head().to_string())
+                    break
+                    
+                except UnicodeDecodeError:
+                    continue
+                except pd.errors.EmptyDataError:
+                    print(f"❌ Error: Archivo vacío")
+                    break
+                except Exception as e:
+                    continue
+        
+        if not success:
+            print("❌ No se pudo leer el archivo con ninguna combinación de encoding y separador")
+            print("   Intentando leer las primeras líneas directamente:")
+            try:
+                with open(file_path, 'r', encoding='cp1252') as f:
+                    print("\n   Primeras 5 líneas del archivo:")
+                    for i, line in enumerate(f):
+                        if i < 5:
+                            print(f"      {line.strip()}")
+            except Exception as e:
+                print(f"❌ Error al leer el archivo directamente: {str(e)}")
+
+    print("\n📋 Resumen del diagnóstico:")
+    print(f"- Directorio data existe: ✅")
+    print(f"- Archivos CSV encontrados: {len(csv_files)}")
+    print("\nPróximos pasos recomendados:")
+    print("1. Verifica que los archivos CSV tengan el formato esperado")
+    print("2. Asegúrate de que los nombres de las columnas sean válidos")
+    print("3. Revisa que el separador y encoding sean consistentes")
+
+if __name__ == "__main__":
+    diagnose_csv_loading()
+
+================================================
+File: /scripts/generate_requirements.py
+================================================
+#scripts\generate_requirements.py
+from importlib.metadata import version, PackageNotFoundError
+from typing import Dict, List
+from pathlib import Path
+
+# Get the project root directory (parent of scripts directory)
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
+
+def get_package_version(package_name: str) -> str:
+    """Get package version, handling package name variations"""
+    try:
+        # Limpiar el nombre del paquete para la búsqueda de versión
+        lookup_name = package_name.split('[')[0]  # Remover extras como [ollama]
+        return version(lookup_name)
+    except PackageNotFoundError:
+        return None
+
+def generate_requirements() -> None:
+    """Generate requirements.txt with organized dependencies"""
+    
+    # Organizar paquetes por categorías
+    packages: Dict[str, List[str]] = {
+        "Core Dependencies": [
+            "streamlit",
+            "langchain",
+            "langchain-core",
+            "langchain-openai",
+            "langchain-community",
+            "langchain-ollama",
+            "pydantic",
+            "sqlalchemy",
+            "tiktoken",  # Necesario para OpenAI
+        ],
+        "Database": [
+            "mysql-connector-python",
+            "python-dotenv",
+        ],
+        "Data Processing": [
+            "pandas",
+            "numpy",
+        ],
+        "Visualization": [
+            "matplotlib",
+            "seaborn",
+        ],
+        "Machine Learning": [
+            "faiss-cpu",
+        ],
+        "Document Processing": [
+            "pypdf",
+        ],
+        "Utilities": [
+            "requests",
+            "typing-extensions",
+            "typing-inspect",
+            "tqdm",
+        ],
+    }
+
+    requirements_file = PROJECT_ROOT / "requirements.txt"
+    
+    try:
+        print(f"\n📝 Generating requirements.txt in: {requirements_file}")
+        
+        with open(requirements_file, 'w') as f:
+            for category, pkg_list in packages.items():
+                # Añadir comentario de categoría
+                f.write(f"# {category}\n")
+                
+                for package in pkg_list:
+                    version_str = get_package_version(package)
+                    if version_str:
+                        # Extraer versión major.minor.patch
+                        version_parts = version_str.split('.')
+                        if len(version_parts) >= 3:
+                            major_minor_patch = '.'.join(version_parts[:3])
+                            f.write(f"{package}>={major_minor_patch}\n")
+                        else:
+                            f.write(f"{package}>={version_str}\n")
+                    else:
+                        print(f"⚠️ Warning: Version not found for {package}")
+                        f.write(f"{package}\n")
+                
+                # Añadir línea en blanco entre categorías
+                f.write("\n")
+                
+        print("✅ requirements.txt generated successfully!")
+        
+    except Exception as e:
+        print(f"❌ Error generating requirements.txt: {str(e)}")
+
+if __name__ == "__main__":
+    generate_requirements()
+
+================================================
+File: /scripts/setup.py
+================================================
+#scripts\setup.py
+import os
+import subprocess
+import sys
+import platform
+from pathlib import Path
+
+# Get the project root directory (parent of scripts directory)
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
+
+def create_venv():
+    """Create virtual environment"""
+    print("Creating virtual environment...")
+    venv_path = PROJECT_ROOT / "venv"
+    subprocess.check_call([sys.executable, "-m", "venv", str(venv_path)])
+
+def get_activate_command():
+    """Get the appropriate activate command based on OS"""
+    if platform.system() == "Windows":
+        return os.path.join("venv", "Scripts", "activate")
+    return "source venv/bin/activate"
+
+def get_python_path():
+    """Get the appropriate python path based on OS"""
+    if platform.system() == "Windows":
+        return str(PROJECT_ROOT / "venv" / "Scripts" / "python.exe")
+    return str(PROJECT_ROOT / "venv" / "bin" / "python")
+
+def install_requirements():
+    """Install required packages from requirements.txt"""
+    python_cmd = get_python_path()
+    requirements_file = PROJECT_ROOT / "requirements.txt"
+    
+    if not requirements_file.exists():
+        print(f"❌ Error: requirements.txt not found in {requirements_file}!")
+        sys.exit(1)
+    
+    print("📦 Installing packages...")
+    try:
+        # Actualizar pip usando python -m pip
+        print("Upgrading pip...")
+        subprocess.check_call([python_cmd, "-m", "pip", "install", "--upgrade", "pip"])
+        
+        # Instalar los requerimientos
+        print("Installing requirements...")
+        subprocess.check_call([python_cmd, "-m", "pip", "install", "-r", str(requirements_file)])
+        print("✅ All packages installed successfully!")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Error installing packages: {str(e)}")
+        sys.exit(1)
+
+def setup_env_file():
+    """Create .env file if it doesn't exist"""
+    env_file = PROJECT_ROOT / ".env"
+    if not env_file.exists():
+        print("\n📝 Creating .env file template...")
+        env_template = """# OpenAI Configuration
+OPENAI_API_KEY=your_key_here
+
+# OpenAI Models Configuration (optional)
+OPENAI_MODELS=gpt-4o-mini|GPT-4 Mini (Most Economic)|gpt-4o-mini|1;gpt-4o-mini-2024-07-18|GPT-4 Mini July|gpt-4o-mini-2024-07-18|2;gpt-4o-2024-08-06|GPT-4 Turbo August|gpt-4o-2024-08-06|3;gpt-4o|GPT-4 Turbo (High Performance)|gpt-4o|4
+
+# Database Configuration
+MYSQL_USER=your_user
+MYSQL_PASSWORD=your_password
+MYSQL_HOST=your_host
+MYSQL_DATABASE=your_database
+
+# Application Configuration
+IGNORED_TABLES=table1,table2,table3"""
+        
+        env_file.write_text(env_template)
+        print("✅ .env template created successfully!")
+
+def main():
+    try:
+        print("\n🚀 Starting setup process...")
+        print(f"Project root directory: {PROJECT_ROOT}")
+        
+        # Crear entorno virtual
+        create_venv()
+        activate_cmd = get_activate_command()
+        print("✅ Virtual environment created successfully!")
+        
+        # Instalar requerimientos
+        install_requirements()
+        
+        # Configurar archivo .env
+        setup_env_file()
+        
+        print("\n🎉 Setup completed successfully!")
+        print("\n📋 Next steps:")
+        print(f"1. Run: {activate_cmd}")
+        print("2. Configure your .env file with your credentials")
+        print("3. Run: streamlit run src/pages/Home.py")
+        
+    except Exception as e:
+        print(f"\n❌ Error during setup: {str(e)}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
+
+================================================
+File: /requirements.txt
+================================================
+# Core Dependencies
+streamlit>=1.41.1
+langchain>=0.3.13
+langchain-core>=0.3.28
+langchain-openai>=0.2.14
+langchain-community>=0.3.11
+langchain-ollama>=0.2.2
+pydantic>=2.10.3
+sqlalchemy>=2.0.36
+tiktoken>=0.8.0
+
+# Database
+mysql-connector-python>=9.1.0
+python-dotenv>=1.0.1
+
+# Data Processing
+pandas>=2.2.3
+numpy>=2.2.0
+
+# Visualization
+matplotlib>=3.10.0
+seaborn>=0.13.2
+
+# Machine Learning
+faiss-cpu>=1.9.0
+
+# Document Processing
+pypdf>=5.1.0
+
+# Utilities
+requests>=2.32.3
+typing-extensions>=4.12.2
+typing-inspect>=0.9.0
+tqdm>=4.67.1
+
+
+
+================================================
+File: /config/config.py
+================================================
+from dotenv import load_dotenv
+import os
+import logging
+from typing import Dict
+
+logger = logging.getLogger(__name__)
+
+load_dotenv()
+
+class Config:
+    @staticmethod
+    def get_env(key: str, default: str = None) -> str:
+        return os.getenv(key, default)
+
+    @staticmethod
+    def parse_models(models_str: str) -> Dict:
+        models_dict = {}
+        if not models_str:
+            return models_dict
+            
+        for model_str in models_str.split(';'):
+            try:
+                key, name, model_id, priority = model_str.split('|')
+                models_dict[key] = {
+                    'name': name,
+                    'model': model_id,
+                    'priority': int(priority)
+                }
+            except ValueError:
+                logger.warning(f"Skipping invalid model config: {model_str}")
+        return models_dict
+
+# LLM Settings
+DEFAULT_PROVIDER = Config.get_env("DEFAULT_LLM_PROVIDER", "ollama")
+DEFAULT_TEMPERATURE = float(Config.get_env("DEFAULT_TEMPERATURE", "0.7"))
+
+# OpenAI Config
+OPENAI_API_KEY = Config.get_env("OPENAI_API_KEY")
+OPENAI_DEFAULT_MODEL = Config.get_env("OPENAI_DEFAULT_MODEL", "gpt-4")
+OPENAI_MODELS = Config.parse_models(Config.get_env("OPENAI_MODELS", ""))
+
+# Ollama Config
+OLLAMA_BASE_URL = Config.get_env("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_DEFAULT_MODEL = Config.get_env("OLLAMA_DEFAULT_MODEL", "llama3:8b-instruct-q8_0")
+OLLAMA_MODELS = Config.parse_models(Config.get_env("OLLAMA_MODELS", ""))
+
+# Database Config
+MYSQL_USER = Config.get_env("MYSQL_USER")
+MYSQL_PASSWORD = Config.get_env("MYSQL_PASSWORD")
+MYSQL_HOST = Config.get_env("MYSQL_HOST")
+MYSQL_DATABASE = Config.get_env("MYSQL_DATABASE")
+
+# Get provider-specific default model
+def get_default_model(provider: str) -> str:
+    if provider == "openai":
+        return OPENAI_DEFAULT_MODEL
+    return OLLAMA_DEFAULT_MODEL
+
+# Get available models for provider
+def get_provider_models(provider: str) -> Dict:
+    return OPENAI_MODELS if provider == "openai" else OLLAMA_MODELS
+
+================================================
+File: /src/services/state_management.py
+================================================
+# src/services/state_management.py
+import streamlit as st
+from config.config import OPENAI_API_KEY, MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DATABASE
+import logging
+
+logger = logging.getLogger(__name__)
+
+def initialize_session_state():
+    """Initialize all session state variables"""
+    # API Keys and Database config
+    if 'OPENAI_API_KEY' not in st.session_state:
+        st.session_state['OPENAI_API_KEY'] = OPENAI_API_KEY
+    if 'DB_CONFIG' not in st.session_state:
+        st.session_state['DB_CONFIG'] = {
+            'user': MYSQL_USER,
+            'password': MYSQL_PASSWORD,
+            'host': MYSQL_HOST,
+            'database': MYSQL_DATABASE
+        }
+    
+    # History and logs
+    if 'history' not in st.session_state:
+        st.session_state['history'] = []
+    if 'debug_logs' not in st.session_state:
+        st.session_state['debug_logs'] = []
+    if 'selected_tables' not in st.session_state:
+        st.session_state['selected_tables'] = []
+        
+    # LLM configuration with proper defaults
+    if 'llm_provider' not in st.session_state:
+        st.session_state['llm_provider'] = 'ollama'  # Cambio a ollama por defecto
+    if 'llm_model_name' not in st.session_state:
+        st.session_state['llm_model_name'] = 'llama3:8b-instruct-q8_0'
+    if 'llm_temperature' not in st.session_state:
+        st.session_state['llm_temperature'] = 0.7
+
+def store_debug_log(data):
+    """Store debug information"""
+    if 'debug_logs' not in st.session_state:
+        st.session_state['debug_logs'] = []
+    st.session_state['debug_logs'].append(data)
+
+================================================
+File: /src/services/data_processing.py
+================================================
+# src/services/data_processing.py
+import streamlit as st
+import pandas as pd
+import logging
+from typing import Optional, Dict, List, Any
+#from src.utils.chatbot import generate_sql_chain, generate_response_chain
+from src.utils.chatbot.chains import ChainBuilder
+from src.utils.chatbot.query import QueryProcessor
+from src.utils.chatbot.response import ResponseProcessor
+from src.services.state_management import store_debug_log
+#from src.services.rag_service import process_query_with_rag
+from src.services.rag_service import RAGService
+
+# Configuración de logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('app.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# src/services/data_processing.py
+
+def handle_query_and_response(question: str, selected_tables: List[str]) -> Dict[str, Any]:
+    """Process a query and generate a response"""
+    try:
+        if 'debug_logs' not in st.session_state:
+            st.session_state['debug_logs'] = []
+            
+        # Usar QueryProcessor para manejar toda la lógica de procesamiento
+        response_data = QueryProcessor.process_query_and_response(question, selected_tables)
+        
+        # Almacenar en debug_logs
+        store_debug_log({
+            'timestamp': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'question': question,
+            'query': response_data.get('query'),
+            'full_response': response_data.get('response'),
+            'has_visualization': response_data.get('visualization_data') is not None,
+            'rag_enabled': st.session_state.get('rag_initialized', False),
+            'selected_tables': selected_tables,
+            'rag_context': response_data.get('rag_context', [])
+        })
+        
+        return response_data
+            
+    except Exception as e:
+        logger.error(f"Error processing query: {str(e)}")
+        
+        # Usar ResponseProcessor para manejar errores
+        error_response = ResponseProcessor.handle_error_response(
+            question=question,
+            error=str(e),
+            selected_tables=selected_tables
+        )
+        
+        # Almacenar error en debug_logs
+        store_debug_log({
+            'timestamp': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'question': question,
+            'error': str(e),
+            'selected_tables': selected_tables
+        })
+        
+        return error_response
+
+================================================
+File: /src/services/rag_service.py
+================================================
+from pathlib import Path
+from typing import Dict, List, Optional
+import logging
+import streamlit as st
+from langchain.memory import ConversationBufferMemory
+from langchain_community.chat_message_histories import StreamlitChatMessageHistory
+from ..utils.rag_utils import initialize_embeddings, load_documents, create_vector_store
+from ..utils.database import get_all_tables
+from ..utils.chatbot.chains import ChainBuilder
+
+logger = logging.getLogger(__name__)
+
+class RAGService:
+    """Service class for handling RAG (Retrieval Augmented Generation) functionality"""
+    
+    @staticmethod
+    def initialize_components():
+        """Initialize RAG components in session state"""
+        if 'rag_initialized' not in st.session_state:
+            try:
+                api_key = RAGService._get_api_key()
+                if not api_key:
+                    return
+                    
+                embeddings = initialize_embeddings(api_key)
+                documents = RAGService._load_documents()
+                if not documents:
+                    return
+                    
+                vector_store = create_vector_store(documents, embeddings)
+                if not vector_store:
+                    return
+                    
+                RAGService._initialize_memory_and_state(vector_store, documents)
+                logger.info("RAG components initialized successfully")
+                    
+            except Exception as e:
+                logger.error(f"Error initializing RAG components: {e}")
+                st.session_state['rag_initialized'] = False
+    
+    @staticmethod
+    def process_query(question: str, selected_tables: Optional[List[str]] = None) -> Dict:
+        """
+        Process query using RAG enhancement
+        
+        Args:
+            question (str): The user's question
+            selected_tables (Optional[List[str]]): List of selected tables to query
+        
+        Returns:
+            Dict: Processed query result with context
+        """
+        try:
+            if not st.session_state.get('rag_initialized'):
+                return {'question': question, 'error': 'RAG not initialized'}
+            
+            context = RAGService._get_relevant_context(question)
+            chat_history = RAGService._get_chat_history()
+            
+            query = RAGService._generate_enhanced_query(
+                question, 
+                context, 
+                chat_history, 
+                selected_tables
+            )
+            
+            RAGService._update_memory(question, query)
+            
+            return {
+                'question': question,
+                'query': query,
+                'context_used': [doc.page_content for doc in context],
+                'chat_history': chat_history
+            }
+            
+        except Exception as e:
+            logger.error(f"Error processing RAG query: {e}")
+            return {
+                'question': question,
+                'error': str(e)
+            }
+    
+    @staticmethod
+    def _get_api_key() -> Optional[str]:
+        """Get OpenAI API key from session state"""
+        api_key = st.session_state.get('OPENAI_API_KEY')
+        if not api_key:
+            logger.warning("OpenAI API key not found in session state")
+            st.session_state['rag_initialized'] = False
+        return api_key
+    
+    @staticmethod
+    def _load_documents():
+        """Load documents from the docs directory"""
+        try:
+            cwd = Path.cwd()
+            docs_path = Path("docs")
+            if not docs_path.exists():
+                docs_path = cwd / "docs"
+            
+            logger.info(f"Looking for documents in: {docs_path}")
+            documents = load_documents(docs_path)
+            
+            if not documents:
+                logger.warning("No documents found, RAG will be disabled")
+                st.session_state['rag_initialized'] = False
+                return None
+                
+            return documents
+            
+        except Exception as e:
+            logger.error(f"Error loading documents: {e}")
+            st.session_state['rag_initialized'] = False
+            return None
+    
+    @staticmethod
+    def _initialize_memory_and_state(vector_store, documents):
+        """Initialize memory and session state variables"""
+        msgs = StreamlitChatMessageHistory(key="langchain_messages")
+        memory = ConversationBufferMemory(
+            chat_memory=msgs,
+            memory_key="chat_history",
+            return_messages=True
+        )
+        
+        st.session_state['vector_store'] = vector_store
+        st.session_state['conversation_memory'] = memory
+        st.session_state['rag_initialized'] = True
+        st.session_state['docs_loaded'] = [
+            str(doc.metadata.get('source', 'Unknown')) 
+            for doc in documents
+        ]
+    
+    @staticmethod
+    def _get_relevant_context(question: str):
+        """Get relevant context from vector store"""
+        vector_store = st.session_state.get('vector_store')
+        return vector_store.similarity_search(question, k=3) if vector_store else []
+    
+    @staticmethod
+    def _get_chat_history():
+        """Get chat history from memory"""
+        memory = st.session_state.get('conversation_memory')
+        return memory.load_memory_variables({}).get('chat_history', '') if memory else ""
+    
+    @staticmethod
+    def _generate_enhanced_query(question: str, context: List, 
+                               chat_history: str, selected_tables: Optional[List[str]]) -> str:
+        """Generate enhanced SQL query using context"""
+        enhanced_prompt = f"""
+        Based on:
+        - Previous conversation: {chat_history}
+        - Context: {[doc.page_content for doc in context]}
+        - Selected tables: {selected_tables if selected_tables else 'all tables'}
+        - Question: {question}
+        
+        Generate an appropriate SQL query using only the selected tables.
+        """
+        
+        sql_chain = ChainBuilder.build_sql_chain()
+        return sql_chain.invoke({
+            "question": enhanced_prompt,
+            "selected_tables": selected_tables
+        })
+    
+    @staticmethod
+    def _update_memory(question: str, query: str):
+        """Update conversation memory"""
+        memory = st.session_state.get('conversation_memory')
+        if memory:
+            memory.save_context(
+                {"question": question},
+                {"answer": str(query)}
+            )
+
+================================================
+File: /src/components/history_view.py
+================================================
+# src/components/history_view.py
+import streamlit as st
+import pandas as pd
+from .visualization import create_visualization
+import logging
+
+def display_history():
+    """Display query history"""
+    try:
+        st.header("Conversation History")
+        
+        for idx, item in enumerate(reversed(st.session_state['history']), 1):
+            with st.container():
+                st.markdown(f"**Q{idx}:** {item['question']}")
+                st.markdown(f"**A:** {item['response']}")
+                
+                if item.get('query'):
+                    st.markdown("**SQL Query:**")
+                    st.code(item['query'], language='sql')
+                
+                if item.get('visualization_data'):
+                    if st.button(f"📊 Ver Gráfico {idx}"):
+                        df = pd.DataFrame(item['visualization_data'])
+                        create_visualization(df)
+                
+                st.divider()
+    except Exception as e:
+        logging.error(f"Error displaying history: {str(e)}")
+        st.error("Error loading conversation history")
+
+================================================
+File: /src/components/query_interface.py
+================================================
+# src/components/query_interface.py
+import streamlit as st
+import pandas as pd
+from src.services.data_processing import handle_query_and_response
+from src.components.visualization import create_visualization
+from src.utils.database import get_all_tables
+from typing import List
+from src.utils.llm_provider import LLMProvider
+from config.config import get_default_model
+
+def display_table_selection() -> List[str]:
+    """Display table selection interface and return selected tables"""
+    try:
+        tables = get_all_tables()
+        if not tables:
+            st.sidebar.error("No tables found in database.")
+            return []
+        
+        st.sidebar.write("📊 Select tables to query:")
+        
+        # Crear dos columnas para los botones de selección
+        col1, col2 = st.sidebar.columns(2)
+        with col1:
+            if st.button("Select All"):
+                st.session_state['selected_tables'] = tables
+        with col2:
+            if st.button("Clear All"):
+                st.session_state['selected_tables'] = []
+
+        # Inicializar selected_tables en session_state si no existe
+        if 'selected_tables' not in st.session_state:
+            st.session_state['selected_tables'] = []
+
+        # Multiselect con los nombres originales de las tablas
+        selected_tables = st.sidebar.multiselect(
+            "Available Tables:",
+            options=sorted(tables, reverse=True),  # Ordenado de más reciente a más antiguo
+            default=st.session_state['selected_tables'],
+            key='table_selector'
+        )
+        
+        # Guardar la selección en session_state
+        st.session_state['selected_tables'] = selected_tables
+        
+        # Mostrar contador de selección
+        if selected_tables:
+            st.sidebar.success(f"✅ Selected {len(selected_tables)} tables")
+        else:
+            st.sidebar.warning("⚠️ No tables selected")
+            
+        return selected_tables
+        
+    except Exception as e:
+        st.sidebar.error(f"Error in table selection: {str(e)}")
+        return []
+
+def display_query_interface():
+    """Display the main query interface"""
+    # Initialize session states
+    if 'current_question' not in st.session_state:
+        st.session_state['current_question'] = ""
+    
+    # Obtener las tablas seleccionadas
+    selected_tables = st.session_state.get('selected_tables', [])
+    
+    if not selected_tables:
+        st.warning("Please select at least one table from the sidebar to start querying.")
+        return
+    
+    # Mostrar las tablas seleccionadas en un expander
+    with st.expander("Selected Tables", expanded=False):
+        st.write(", ".join(selected_tables))
+    
+    # Contenedor principal para el input y botón
+    col1, col2 = st.columns([6,1])
+    
+    with col1:
+        question = st.text_input(
+            "Question",  # Añadimos un label pero lo ocultamos
+            value=st.session_state['current_question'],
+            placeholder="Ask a question about your data...",
+            label_visibility="collapsed"
+        )
+    
+    with col2:
+        ask_button = st.button("🔍 Ask", type="primary", use_container_width=True)
+    
+    # Process query if button is clicked or if we have a new quick question
+    if ask_button or question != st.session_state['current_question']:
+        if question and selected_tables:  # Solo procesar si hay una pregunta y tablas seleccionadas
+            st.session_state['current_question'] = question
+            process_query(question, selected_tables)
+
+def process_query(question: str, selected_tables: List[str]):
+    """Process a query and display results"""
+    with st.spinner('Processing your question...'):
+        try:
+            response = handle_query_and_response(question, selected_tables)
+            
+            if response:
+                # Main response container
+                response_container = st.container()
+                with response_container:
+                    # Answer section
+                    st.markdown("### Answer")
+                    st.write(response.get('response', ''))
+                    
+                    # Results section
+                    results_container = st.container()
+                    with results_container:
+                        # Visualization section
+                        if response.get('visualization_data'):
+                            viz_expander = st.expander("📊 Data Visualization", expanded=True)
+                            with viz_expander:
+                                df = pd.DataFrame(response['visualization_data'])
+                                create_visualization(df)
+                        
+                        # SQL Query section
+                        if response.get('query'):
+                            sql_expander = st.expander("🔍 SQL Query", expanded=False)
+                            with sql_expander:
+                                st.code(response.get('query', ''), language='sql')
+
+                        # RAG Context section
+                        if response.get('rag_context'):
+                            rag_expander = st.expander("📚 Documents Used for Analysis", expanded=False)
+                            with rag_expander:
+                                st.markdown("The following document excerpts were used to enhance the analysis:")
+                                for idx, ctx in enumerate(response['rag_context'], 1):
+                                    st.markdown(f"**Document {idx}:**")
+                                    st.markdown(f"```\n{ctx[:300]}...\n```")
+                                    st.markdown("---")
+                
+                # Add to history
+                if 'history' not in st.session_state:
+                    st.session_state['history'] = []
+                st.session_state['history'].append(response)
+                
+        except Exception as e:
+            st.error(f"Error processing query: {str(e)}")
+            st.info("Please check your database connection and API keys.")
+
+def display_model_settings():
+    st.sidebar.markdown("## Model Settings")
+    ollama_available = LLMProvider.check_ollama_availability()
+    
+    if not ollama_available:
+        st.sidebar.warning("⚠️ Ollama service not detected")
+    
+    provider = st.sidebar.selectbox(
+        "Select Provider",
+        options=['openai', 'ollama'],
+        index=0 if st.session_state.get('llm_provider') == 'openai' else 1,
+        key='provider_select'
+    )
+    st.session_state['llm_provider'] = provider
+    
+    available_models = LLMProvider.list_available_models(provider)
+    model_name = st.sidebar.selectbox(
+        "Select Model",
+        options=available_models,
+        index=available_models.index(get_default_model(provider)) if get_default_model(provider) in available_models else 0,
+        key='model_select'
+    )
+    st.session_state['llm_model_name'] = model_name
+    
+    temperature = st.sidebar.slider(
+        "Temperature",
+        min_value=0.0,
+        max_value=1.0,
+        value=st.session_state.get('llm_temperature', 0.7),
+        step=0.1,
+        key='temperature_slider'
+    )
+    st.session_state['llm_temperature'] = temperature
+
+================================================
+File: /src/components/debug_panel.py
+================================================
+# src/components/debug_panel.py
+import streamlit as st
+import logging
+
+def display_debug_section():
+    """Display debug information in a separate section"""
+    try:
+        st.header("Debug Information")
+        
+        # Asegurar que debug_logs existe
+        if 'debug_logs' not in st.session_state:
+            st.session_state['debug_logs'] = []
+            
+        if st.session_state['debug_logs']:
+            for idx, log in enumerate(st.session_state['debug_logs'], 1):
+                with st.expander(f"Debug Log {idx}", expanded=False):
+                    st.json(log)
+        else:
+            st.info("No debug logs available yet. Make some queries to see the debug information.")
+    except Exception as e:
+        logging.error(f"Error displaying debug section: {str(e)}")
+        st.error("Error loading debug information")
+
+================================================
+File: /src/components/visualization.py
+================================================
+# src/components/visualization.py
+import streamlit as st
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import logging
+
+def create_visualization(df: pd.DataFrame):
+    """
+    Creates a visualization using matplotlib and seaborn
+    
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        DataFrame containing the data to visualize with 'Categoría' and 'Cantidad' columns
+    """
+    try:
+        sns.set_style("whitegrid")
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        
+        sns.barplot(data=df, x='Categoría', y='Cantidad', ax=ax)
+        
+        ax.set_title('Distribución de Datos', pad=20)
+        ax.set_xlabel('Categoría')
+        ax.set_ylabel('Cantidad')
+        
+        if len(df) > 4:
+            plt.xticks(rotation=45, ha='right')
+        
+        for i in ax.containers:
+            ax.bar_label(i, fmt='%.0f')
+        
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close(fig)
+    except Exception as e:
+        logging.error(f"Error creating visualization: {str(e)}")
+        st.error("Error creating visualization")
+
+def create_dynamic_visualization(df: pd.DataFrame, chart_type: str = 'bar'):
+    """
+    Creates a dynamic visualization based on the data type and chart_type
+    
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        DataFrame containing the data to visualize
+    chart_type : str
+        Type of chart to create ('bar', 'line', 'pie', 'scatter')
+    """
+    try:
+        fig, ax = plt.subplots(figsize=(10, 6))
+        
+        if chart_type == 'bar':
+            sns.barplot(data=df, x='Categoría', y='Cantidad', ax=ax)
+        elif chart_type == 'line':
+            sns.lineplot(data=df, x='Categoría', y='Cantidad', ax=ax, marker='o')
+        elif chart_type == 'pie':
+            ax.pie(df['Cantidad'], labels=df['Categoría'], autopct='%1.1f%%')
+        elif chart_type == 'scatter':
+            sns.scatterplot(data=df, x='Categoría', y='Cantidad', ax=ax)
+        
+        plt.title('Análisis de Datos')
+        if chart_type != 'pie' and len(df) > 4:
+            plt.xticks(rotation=45, ha='right')
+        
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close(fig)
+    except Exception as e:
+        logging.error(f"Error creating dynamic visualization: {str(e)}")
+        st.error("Error creating visualization")
+
+================================================
+File: /src/layouts/header.py
+================================================
+# src/layouts/header.py
+import streamlit as st
+from ..utils.database import test_database_connection
+
+def display_header(show_connection_status: bool = True):
+    """
+    Displays the application header with optional connection status
+    
+    Parameters:
+    -----------
+    show_connection_status : bool
+        Whether to show the database connection status
+    """
+    st.markdown(
+        """
+        <div style='text-align: center;'>
+            <h1>Khipu AI 📊</h1>
+            <p style='font-size: 1.2em; color: #666;'>"Tu agente en exploracion de datos SQL con RAG"</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    if show_connection_status:
+        connection_status = test_database_connection()
+        if connection_status["success"]:
+            st.sidebar.success("✔️ Connected to database")
+            if connection_status["tables"]:
+                st.sidebar.info(f"Available tables: {len(connection_status['tables'])}")
+        else:
+            st.sidebar.error(f"❌ Connection error: {connection_status['error']}")
+
+def display_subheader(title: str, description: str = ""):
+    """
+    Displays a subheader with optional description
+    
+    Parameters:
+    -----------
+    title : str
+        The title of the section
+    description : str
+        Optional description text
+    """
+    st.markdown(f"## {title}")
+    if description:
+        st.markdown(f"_{description}_")
+
+================================================
+File: /src/layouts/footer.py
+================================================
+# src/layouts/footer.py
+import streamlit as st
+
+def display_footer():
+    """Display the application footer"""
+    st.markdown("<br><br><br>", unsafe_allow_html=True)
+    st.markdown("---")
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown(
+            """
+            <div style='text-align: center; color: #666666; padding: 10px;'>
+                <p>Created by <a href='https://ronaldmego.github.io/' target='_blank' style='text-decoration: none;'>Ronald Mego</a> 🚀</p>
+                <p style='font-size: 0.8em;'>Open Source Project | 
+                    <a href='https://github.com/ronaldmego/data_assistant_ai' target='_blank' style='text-decoration: none;'>More Info</a>
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+================================================
+File: /src/pages/Home.py
+================================================
+# src/pages/Home.py
+import sys
+from pathlib import Path
+import streamlit as st
+import logging
+import os
+
+root_path = Path(__file__).parent.parent.parent
+sys.path.append(str(root_path))
+
+from config.config import (
+    OPENAI_API_KEY, MYSQL_USER, MYSQL_PASSWORD, 
+    MYSQL_HOST, MYSQL_DATABASE, DEFAULT_PROVIDER,
+    DEFAULT_TEMPERATURE
+)
+
+st.set_page_config(
+    page_title="Khipu AI 📊",
+    page_icon="📊",
+    layout="wide"
+)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('app.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+def initialize_session_state():
+    if 'history' not in st.session_state:
+        st.session_state['history'] = []
+    if 'debug_logs' not in st.session_state:
+        st.session_state['debug_logs'] = []
+    if 'OPENAI_API_KEY' not in st.session_state:
+        st.session_state['OPENAI_API_KEY'] = OPENAI_API_KEY
+    if 'DB_CONFIG' not in st.session_state:
+        st.session_state['DB_CONFIG'] = {
+            'user': MYSQL_USER,
+            'password': MYSQL_PASSWORD,
+            'host': MYSQL_HOST,
+            'database': MYSQL_DATABASE
+        }
+    if 'selected_tables' not in st.session_state:
+        st.session_state['selected_tables'] = []
+    
+    if 'llm_provider' not in st.session_state:
+        st.session_state['llm_provider'] = DEFAULT_PROVIDER
+    if 'llm_temperature' not in st.session_state:
+        st.session_state['llm_temperature'] = DEFAULT_TEMPERATURE
+
+# Rest of your imports and main() function remain the same
+
+try:
+    # Import components
+    from src.utils.database import get_all_tables, test_database_connection
+    from src.utils.chatbot.chains import ChainBuilder
+    from src.services.data_processing import handle_query_and_response
+    #from src.services.rag_service import initialize_rag_components
+    from src.services.rag_service import RAGService
+    from src.components.debug_panel import display_debug_section
+    from src.components.history_view import display_history
+    from src.components.query_interface import display_query_interface, display_table_selection, display_model_settings
+    from src.layouts.footer import display_footer
+    from src.layouts.header import display_header
+
+    logger.info("All components loaded successfully")
+except Exception as e:
+    logger.error(f"Failed to import required components: {str(e)}")
+    st.error(f"Failed to import required components: {str(e)}")
+    st.stop()
+
+def main():
+    try:
+        # Inicializar session state
+        initialize_session_state()
+        
+        # Header principal
+        display_header()
+        
+        # Sidebar settings
+        st.sidebar.markdown("---")
+        
+        # Model settings section
+        display_model_settings()
+        st.sidebar.markdown("---")
+        
+        # Verificar API key si se usa OpenAI
+        if st.session_state.get('llm_provider') == 'openai':
+            if not st.session_state.get('OPENAI_API_KEY'):
+                st.sidebar.error("⚠️ OpenAI API Key not found. Please check your .env file or switch to Ollama.")
+                return
+        
+        # Inicializar RAG
+        #initialize_rag_components()
+        RAGService.initialize_components()
+        
+        # Database connection status
+        connection_status = test_database_connection()
+        if connection_status["success"]:
+            st.sidebar.success("✔️ Connected to database")
+            if connection_status["tables"]:
+                st.sidebar.info(f"Available tables: {len(connection_status['tables'])}")
+        else:
+            st.sidebar.error(f"❌ Connection error: {connection_status['error']}")
+            return
+        
+        # Table selection
+        selected_tables = display_table_selection()
+        
+        # Main content tabs
+        tab1, tab2 = st.tabs(["Chat", "Debug Logs"])
+        
+        with tab1:
+            # Mostrar la interfaz principal solo si hay tablas seleccionadas
+            if selected_tables:
+                st.session_state['selected_tables'] = selected_tables
+                st.markdown("---")  # Separador visual
+                display_query_interface()
+                
+                # Mostrar historial si existe
+                if st.session_state.get('history', []):
+                    st.markdown("---")
+                    display_history()
+            else:
+                st.info("Please select at least one table from the sidebar to start querying.")
+        
+        with tab2:
+            display_debug_section()
+        
+        # Footer
+        display_footer()
+            
+    except Exception as e:
+        logger.error(f"Main application error: {str(e)}")
+        st.error("An unexpected error occurred. Please check the logs for details.")
+
+if __name__ == "__main__":
+    main()
+
+================================================
+File: /src/utils/database.py
+================================================
+# src/utils/database.py
+
+from config.config import MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DATABASE
+from langchain_community.utilities import SQLDatabase
+import os
+from typing import List, Dict, Optional
+from sqlalchemy import text, create_engine, inspect
+import logging
+import mysql.connector
+
+logger = logging.getLogger(__name__)
+
+def test_database_connection() -> Dict:
+    """Test database connection and return status"""
+    try:
+        # Primero probar conexión básica
+        conn = mysql.connector.connect(
+            host=MYSQL_HOST,
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+        
+        if conn.is_connected():
+            # Si la conexión es exitosa, obtener las tablas
+            cursor = conn.cursor()
+            cursor.execute("SHOW TABLES")
+            tables = [table[0] for table in cursor.fetchall()]
+            
+            cursor.close()
+            conn.close()
+            
+            return {
+                "success": True,
+                "tables": tables,
+                "error": None
+            }
+    except Exception as e:
+        logger.error(f"Database connection error: {str(e)}")
+        return {
+            "success": False,
+            "tables": [],
+            "error": str(e)
+        }
+
+# Construir el URI de conexión para MySQL
+mysql_uri = f'mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:3306/{MYSQL_DATABASE}'
+
+try:
+    # Inicializar conexiones
+    db = SQLDatabase.from_uri(mysql_uri)
+    engine = create_engine(mysql_uri)
+except Exception as e:
+    logger.error(f"Error initializing database connections: {str(e)}")
+    db = None
+    engine = None
+
+def get_ignored_tables() -> List[str]:
+    """Get list of tables to ignore from environment variable"""
+    ignored_tables = os.getenv('IGNORED_TABLES', '')
+    return [table.strip() for table in ignored_tables.split(',') if table.strip()]
+
+def get_all_tables() -> List[str]:
+    """Get all tables from the database using SQLAlchemy inspector"""
+    try:
+        if not engine:
+            raise Exception("Database engine not initialized")
+        
+        inspector = inspect(engine)
+        tables = inspector.get_table_names()
+        logger.info(f"Found tables: {tables}")
+        return tables
+    except Exception as e:
+        logger.error(f"Error getting tables: {str(e)}")
+        return []
+
+def get_schema(selected_tables: Optional[List[str]] = None) -> str:
+    """
+    Get schema information for selected tables
+    
+    Parameters:
+    -----------
+    selected_tables : Optional[List[str]]
+        List of table names to include in schema. If None, uses all available tables.
+    """
+    try:
+        if not db:
+            raise Exception("Database connection not initialized")
+            
+        # Si no se proporcionan tablas, usar todas las disponibles
+        if not selected_tables:
+            all_tables = get_all_tables()
+            ignored_tables = get_ignored_tables()
+            selected_tables = [table for table in all_tables if table not in ignored_tables]
+        
+        if not selected_tables:
+            return "No tables available for querying."
+        
+        logger.info(f"Getting schema for tables: {selected_tables}")
+        schema_info = db.get_table_info(table_names=selected_tables)
+        return schema_info
+    except Exception as e:
+        logger.error(f"Error getting schema information: {str(e)}")
+        return f"Error getting schema information: {str(e)}"
+
+def run_query(query: str) -> List[tuple]:
+    """Execute SQL query"""
+    try:
+        if not db:
+            raise Exception("Database connection not initialized")
+            
+        result = db.run(query)
+        logger.info(f"Query executed successfully")
+        return result
+    except Exception as e:
+        logger.error(f"Error executing query: {str(e)}")
+        raise
+
+================================================
+File: /src/utils/rag_utils.py
+================================================
+# src/utils/rag_utils.py
+from langchain_openai import OpenAIEmbeddings  # Actualizado
+from langchain_community.vectorstores import FAISS
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader, TextLoader, DirectoryLoader
+from typing import List, Dict, Optional
+from pathlib import Path
+import logging
+import os
+
+logger = logging.getLogger(__name__)
+
+def initialize_embeddings(api_key: str):
+    """Initialize OpenAI embeddings"""
+    try:
+        return OpenAIEmbeddings(openai_api_key=api_key)
+    except Exception as e:
+        logger.error(f"Error initializing embeddings: {e}")
+        raise
+
+def load_documents(docs_path: Path) -> List:
+    """Load documents from various sources"""
+    documents = []
+    
+    # Log the absolute path being checked
+    abs_path = docs_path.absolute()
+    logger.info(f"Checking for documents in: {abs_path}")
+    
+    if not docs_path.exists():
+        logger.warning(f"Documents directory {abs_path} does not exist")
+        # Create the directory if it doesn't exist
+        docs_path.mkdir(parents=True, exist_ok=True)
+        return documents
+        
+    # Log existing files in directory
+    files = list(docs_path.glob('**/*'))
+    logger.info(f"Files found in docs directory: {[str(f) for f in files]}")
+
+    # Load PDFs
+    pdf_loader = DirectoryLoader(str(docs_path), glob="**/*.pdf", loader_cls=PyPDFLoader)
+    # Load text files
+    text_loader = DirectoryLoader(str(docs_path), glob="**/*.txt", loader_cls=TextLoader)
+    # Load markdown files
+    md_loader = DirectoryLoader(str(docs_path), glob="**/*.md", loader_cls=TextLoader)
+    
+    try:
+        # Load each type separately with error handling
+        try:
+            pdf_docs = pdf_loader.load()
+            logger.info(f"Loaded {len(pdf_docs)} PDF documents")
+            documents.extend(pdf_docs)
+        except Exception as e:
+            logger.error(f"Error loading PDFs: {e}")
+            
+        try:
+            txt_docs = text_loader.load()
+            logger.info(f"Loaded {len(txt_docs)} text documents")
+            documents.extend(txt_docs)
+        except Exception as e:
+            logger.error(f"Error loading text files: {e}")
+            
+        try:
+            md_docs = md_loader.load()
+            logger.info(f"Loaded {len(md_docs)} markdown documents")
+            documents.extend(md_docs)
+        except Exception as e:
+            logger.error(f"Error loading markdown files: {e}")
+        
+        if not documents:
+            logger.warning("No documents were successfully loaded")
+        else:
+            logger.info(f"Successfully loaded total of {len(documents)} documents")
+            for doc in documents:
+                logger.info(f"Loaded: {doc.metadata.get('source', 'Unknown source')}")
+            
+        return documents
+    except Exception as e:
+        logger.error(f"Error loading documents: {e}")
+        return documents
+
+def create_vector_store(documents: List, embeddings) -> Optional[FAISS]:
+    """Create FAISS vector store from documents"""
+    try:
+        if not documents:
+            logger.warning("No documents provided for vector store creation")
+            return None
+            
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200,
+            length_function=len,
+            is_separator_regex=False
+        )
+        chunks = text_splitter.split_documents(documents)
+        
+        if not chunks:
+            logger.warning("No chunks created from documents")
+            return None
+            
+        vector_store = FAISS.from_documents(chunks, embeddings)
+        logger.info("Vector store created successfully")
+        return vector_store
+        
+    except Exception as e:
+        logger.error(f"Error creating vector store: {e}")
+        return None
+
+================================================
+File: /src/utils/llm_provider.py
+================================================
+from typing import Optional
+from langchain_openai import ChatOpenAI
+from langchain_ollama import OllamaLLM
+from langchain_core.language_models.chat_models import BaseChatModel
+import streamlit as st
+import logging
+import requests
+from config.config import (
+    OPENAI_MODELS, OLLAMA_MODELS, get_default_model,
+    OLLAMA_BASE_URL, get_provider_models
+)
+
+logger = logging.getLogger(__name__)
+
+class LLMProvider:
+    @staticmethod
+    def get_llm(provider: str = "openai", model_name: Optional[str] = None, **kwargs) -> BaseChatModel:
+        try:
+            if provider == "openai":
+                api_key = st.session_state.get('OPENAI_API_KEY')
+                if not api_key:
+                    raise ValueError("OpenAI API key not found in session state")
+                
+                model_info = OPENAI_MODELS.get(model_name or get_default_model("openai"))
+                if not model_info:
+                    raise ValueError(f"Model {model_name} not found in configuration")
+                
+                return ChatOpenAI(
+                    model=model_info['model'],
+                    temperature=kwargs.get('temperature', 0.7),
+                    openai_api_key=api_key
+                )
+            
+            elif provider == "ollama":
+                return OllamaLLM(
+                    model=model_name or get_default_model("ollama"),
+                    temperature=kwargs.get('temperature', 0.7),
+                    base_url=OLLAMA_BASE_URL
+                )
+            
+            else:
+                raise ValueError(f"Unsupported LLM provider: {provider}")
+                
+        except Exception as e:
+            logger.error(f"Error initializing LLM provider: {str(e)}")
+            raise
+
+    @staticmethod
+    def check_ollama_availability() -> bool:
+        try:
+            response = requests.get(f"{OLLAMA_BASE_URL}/api/version", timeout=2)
+            if response.status_code == 200:
+                models_response = requests.get(f"{OLLAMA_BASE_URL}/api/tags", timeout=2)
+                if models_response.status_code == 200:
+                    return True
+            return False
+        except:
+            return False
+
+    @staticmethod
+    def list_available_models(provider: str) -> list:
+        if provider == "openai":
+            models = get_provider_models("openai")
+            return sorted(models.keys(), key=lambda x: models[x]['priority'])
+        elif provider == "ollama":
+            try:
+                response = requests.get(f"{OLLAMA_BASE_URL}/api/tags", timeout=2)
+                if response.status_code == 200:
+                    models = response.json().get('models', [])
+                    return [model['name'] for model in models]
+            except:
+                pass
+            return [get_default_model("ollama")]
+        return []
+
+    @staticmethod
+    def get_model_display_name(model_name: str, provider: str = "openai") -> str:
+        if provider == "openai":
+            models = get_provider_models("openai")
+            if model_info := models.get(model_name):
+                return model_info['name']
+        return model_name
+
+================================================
+File: /src/utils/chatbot/response.py
+================================================
+from typing import Dict, Any, Tuple, Optional, List
+import pandas as pd
+import logging
+import streamlit as st  # Añadimos esta importación
+
+logger = logging.getLogger(__name__)
+
+class ResponseProcessor:
+    """Handles the processing and formatting of responses"""
+    
+    @staticmethod
+    def process_visualization_data(response: str) -> Tuple[str, Optional[List[Dict[str, Any]]]]:
+        """
+        Extract and process visualization data from response
+        
+        Args:
+            response (str): The full response string
+            
+        Returns:
+            Tuple containing:
+            - str: The main response without visualization data
+            - Optional[List[Dict[str, Any]]]: Processed visualization data if available
+        """
+        try:
+            if "DATA:" not in response:
+                return response, None
+                
+            main_response, data_str = response.split("DATA:")
+            main_response = main_response.strip()
+            data_str = data_str.strip()
+            
+            if not data_str:
+                return main_response, None
+            
+            try:
+                data_list = eval(data_str)
+                if not isinstance(data_list, (list, tuple)) or not data_list:
+                    return main_response, None
+                    
+                visualization_data = [
+                    {"Categoría": str(cat), "Cantidad": float(count)}
+                    for cat, count in data_list
+                ]
+                return main_response, visualization_data
+                
+            except Exception as e:
+                logger.error(f"Error parsing data list: {str(e)}")
+                return main_response, None
+            
+        except Exception as e:
+            logger.error(f"Error processing visualization data: {str(e)}")
+            return response, None
+    
+    @staticmethod
+    def format_response(question: str, query: str, response: str, 
+                       selected_tables: List[str]) -> Dict[str, Any]:
+        """
+        Format the final response with all components
+        
+        Args:
+            question (str): Original question
+            query (str): Generated SQL query
+            response (str): Raw response from LLM
+            selected_tables (List[str]): List of selected tables
+            
+        Returns:
+            Dict[str, Any]: Formatted response
+        """
+        try:
+            # Process visualization data
+            main_response, visualization_data = ResponseProcessor.process_visualization_data(response)
+            
+            formatted_response = {
+                'question': question,
+                'query': query,
+                'response': main_response,
+                'visualization_data': visualization_data,
+                'selected_tables': selected_tables,
+                'schema_overview': None  # Puedes añadir esto si lo necesitas
+            }
+            
+            # Add RAG context if available
+            if 'last_context' in st.session_state:
+                formatted_response['rag_context'] = st.session_state.get('last_context', [])
+            
+            return formatted_response
+            
+        except Exception as e:
+            logger.error(f"Error formatting response: {str(e)}")
+            return {
+                'question': question,
+                'response': f"Error formatting response: {str(e)}",
+                'query': query,
+                'visualization_data': None,
+                'selected_tables': selected_tables
+            }
+            
+    @staticmethod
+    def handle_error_response(question: str, error: str, selected_tables: List[str]) -> Dict[str, Any]:
+        """
+        Create an error response
+        
+        Args:
+            question (str): Original question
+            error (str): Error message
+            selected_tables (List[str]): Selected tables
+            
+        Returns:
+            Dict[str, Any]: Error response
+        """
+        return {
+            'question': question,
+            'response': f"Lo siento, hubo un error al procesar tu consulta: {error}",
+            'query': None,
+            'visualization_data': None,
+            'selected_tables': selected_tables,
+            'rag_context': []
+        }
+
+================================================
+File: /src/utils/chatbot/__init__.py
+================================================
+from .chains import ChainBuilder
+from .prompts import ChatbotPrompts
+from .insights import InsightGenerator
+from .response import ResponseProcessor
+from .query import QueryProcessor
+
+__all__ = [
+    'ChainBuilder',
+    'ChatbotPrompts',
+    'InsightGenerator',
+    'ResponseProcessor',
+    'QueryProcessor'
+]
+
+================================================
+File: /src/utils/chatbot/prompts.py
+================================================
+from langchain_core.prompts import ChatPromptTemplate
+import logging
+
+logger = logging.getLogger(__name__)
+
+class ChatbotPrompts:
+    """Centralize all prompt templates"""
+    
+    @staticmethod
+    def get_sql_prompt() -> ChatPromptTemplate:
+        """Get the SQL generation prompt template"""
+        template = """Based on the provided table schema for the selected tables, analyze if the user's question requires a specific SQL query.
+    If it's a greeting or general question, return this SQL query without any markdown or formatting:
+    SELECT table_name, column_name, data_type FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name IN ({table_list})
+
+    If it's a specific analytical question, write a SQL query that answers it using only the selected tables.
+
+    Selected Tables Schema:
+    {schema}
+
+    Question: {question}
+
+    IMPORTANT: Write only the raw SQL query without any markdown formatting, backticks, or 'sql' tags. Return just the query text.
+
+    Query:"""
+        
+        return ChatPromptTemplate.from_template(template)
+    
+    @staticmethod
+    def get_response_prompt() -> ChatPromptTemplate:
+        """Get the response generation prompt template"""
+        template = """You are Quipu AI, a data analyst specialized in exploring and providing insights.
+Always maintain a professional, analytical tone and focus on data possibilities.
+
+Context:
+- Question: {question}
+- Selected Tables: {selected_tables}
+- Available Schema: {schema}
+- SQL Query Used: {query}
+- Query Results: {response}
+- Schema Insights: {insights}
+- Suggested Analyses: {suggestions}
+
+Response Guidelines:
+1. Greetings/General Questions:
+   - Briefly acknowledge (1 sentence max)
+   - Share insights about selected tables
+   - Focus on data overview for selected tables
+   - Suggest concrete analytical questions for these tables
+   
+2. Specific Analysis Questions:
+   - Provide direct answer with numerical details
+   - Add context and patterns
+   - Compare with related metrics when possible
+   - Suggest follow-up analyses within selected tables
+
+Important:
+- Always be data-centric and analytical
+- Minimize casual conversation
+- Focus on metrics, patterns, and insights
+- ALWAYS respond in the same language as the question
+- If sharing numerical results, add them at the end as:
+DATA:[("category1",number1),("category2",number2),...]"""
+        
+        return ChatPromptTemplate.from_template(template)
+    
+    @staticmethod
+    def get_schema_suggestions_prompt() -> ChatPromptTemplate:
+        """Get the schema suggestions prompt template"""
+        template = """Given this database structure:
+{schema_data}
+
+Generate 3 basic analytical questions that could be answered with this data. Focus on:
+1. Basic counts and distributions
+2. Time-based analysis if date fields are available
+3. Category or group comparisons if categorical fields exist
+
+Return just the numbered list in Spanish."""
+        
+        return ChatPromptTemplate.from_template(template)
+
+================================================
+File: /src/utils/chatbot/query.py
+================================================
+from typing import Dict, Any, List, Optional
+import logging
+from .chains import ChainBuilder
+from .response import ResponseProcessor
+from ..database import get_schema, run_query
+import streamlit as st
+
+logger = logging.getLogger(__name__)
+
+class QueryProcessor:
+    """Handles query processing and execution"""
+    
+    @staticmethod
+    def process_query_and_response(question: str, selected_tables: List[str]) -> Dict[str, Any]:
+        """
+        Process a query and generate a response
+        
+        Args:
+            question (str): User's question
+            selected_tables (List[str]): List of selected tables
+            
+        Returns:
+            Dict[str, Any]: Processed response with all components
+        """
+        try:
+            # Check RAG availability
+            if st.session_state.get('rag_initialized') and st.session_state.get('rag_enabled', True):
+                return QueryProcessor._process_with_rag(question, selected_tables)
+            else:
+                return QueryProcessor._process_without_rag(question, selected_tables)
+                
+        except Exception as e:
+            logger.error(f"Error processing query: {str(e)}")
+            return ResponseProcessor.handle_error_response(question, str(e), selected_tables)
+    
+    @staticmethod
+    def _process_with_rag(question: str, selected_tables: List[str]) -> Dict[str, Any]:
+        """Process query using RAG enhancement"""
+        try:
+            #from ...services.rag_service import process_query_with_rag
+            from ...services.rag_service import RAGService
+            
+            # Get RAG enhanced query
+            rag_response = RAGService.process_query(question, selected_tables)
+            query = rag_response.get('query', '')
+            context_used = rag_response.get('context_used', [])
+            st.session_state['last_context'] = context_used
+            
+            # Generate response using the enhanced query
+            full_chain = ChainBuilder.build_response_chain(ChainBuilder.build_sql_chain())
+            full_response = full_chain.invoke({
+                "question": question,
+                "query": query,
+                "selected_tables": selected_tables
+            })
+            
+            # Add RAG indicator to response
+            full_response = "🧠 " + str(full_response)
+            
+            return ResponseProcessor.format_response(
+                question=question,
+                query=query,
+                response=full_response,
+                selected_tables=selected_tables
+            )
+            
+        except Exception as e:
+            logger.error(f"Error in RAG processing: {str(e)}")
+            return ResponseProcessor.handle_error_response(question, str(e), selected_tables)
+    
+    @staticmethod
+    def _process_without_rag(question: str, selected_tables: List[str]) -> Dict[str, Any]:
+        """Process query without RAG"""
+        try:
+            # Generate SQL query
+            sql_chain = ChainBuilder.build_sql_chain()
+            query = sql_chain.invoke({
+                "question": question,
+                "selected_tables": selected_tables
+            })
+            
+            # Generate full response
+            full_chain = ChainBuilder.build_response_chain(sql_chain)
+            full_response = full_chain.invoke({
+                "question": question,
+                "query": query,
+                "selected_tables": selected_tables
+            })
+            
+            return ResponseProcessor.format_response(
+                question=question,
+                query=query,
+                response=full_response,
+                selected_tables=selected_tables
+            )
+            
+        except Exception as e:
+            logger.error(f"Error in standard processing: {str(e)}")
+            return ResponseProcessor.handle_error_response(question, str(e), selected_tables)
+    
+    @staticmethod
+    def get_schema_overview(selected_tables: List[str]) -> Dict[str, Any]:
+        """
+        Get an overview of the database schema for selected tables
+        
+        Args:
+            selected_tables (List[str]): List of selected tables
+            
+        Returns:
+            Dict[str, Any]: Schema overview response
+        """
+        try:
+            from .insights import InsightGenerator
+            
+            schema_data = InsightGenerator.get_default_insights(selected_tables)
+            suggestions = InsightGenerator.generate_schema_suggestions(schema_data)
+            overview = InsightGenerator.format_schema_overview(schema_data)
+            
+            response = f"""
+Aquí está un resumen de los datos disponibles:
+
+{overview}
+
+Algunas preguntas que podrías hacer:
+{suggestions}
+            """
+            
+            # Create visualization data from schema info
+            visualization_data = [
+                {"Categoría": table["table"], "Cantidad": len(table["columns"])}
+                for table in schema_data
+            ]
+            
+            return {
+                'question': "Visión general de la base de datos",
+                'response': response,
+                'query': "SELECT * FROM information_schema.columns WHERE table_schema = DATABASE()",
+                'visualization_data': visualization_data,
+                'selected_tables': selected_tables,
+                'schema_overview': overview
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting schema overview: {str(e)}")
+            return ResponseProcessor.handle_error_response(
+                "Visión general de la base de datos",
+                str(e),
+                selected_tables
+            )
+
+================================================
+File: /src/utils/chatbot/chains.py
+================================================
+from typing import Any, Dict
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+import logging
+from ...utils.database import get_schema, run_query
+from .prompts import ChatbotPrompts
+from ...utils.llm_provider import LLMProvider
+import streamlit as st
+
+logger = logging.getLogger(__name__)
+
+class ChainBuilder:
+    """Handles the creation and configuration of LangChain chains"""
+    
+    @staticmethod
+    def _clean_sql_query(query: str) -> str:
+        """Clean SQL query from markdown formatting and other artifacts"""
+        # Remove markdown SQL markers
+        query = query.replace('```sql', '').replace('```', '')
+        
+        # Remove any leading/trailing whitespace
+        query = query.strip()
+        
+        # Ensure the query ends with a semicolon if it doesn't have one
+        if not query.strip().endswith(';'):
+            query += ';'
+        
+        return query
+
+    @staticmethod
+    def build_sql_chain():
+        """Build the SQL generation chain"""
+        try:
+            prompt = ChatbotPrompts.get_sql_prompt()
+            llm = LLMProvider.get_llm(
+                provider=st.session_state.get('llm_provider', 'openai'),
+                model_name=st.session_state.get('llm_model_name'),
+                temperature=st.session_state.get('llm_temperature', 0.7)
+            )
+            
+            return (
+                RunnablePassthrough()
+                | ChainBuilder._format_sql_input
+                | prompt
+                | llm.bind(stop=["\nSQLResult:"])
+                | StrOutputParser()
+                | ChainBuilder._clean_sql_query  # Añadimos el paso de limpieza
+            )
+        except Exception as e:
+            logger.error(f"Error building SQL chain: {str(e)}")
+            raise
+    
+    @staticmethod
+    def build_response_chain(sql_chain):
+        """Build the response generation chain"""
+        try:
+            prompt = ChatbotPrompts.get_response_prompt()
+            llm = LLMProvider.get_llm(
+                provider=st.session_state.get('llm_provider', 'openai'),
+                model_name=st.session_state.get('llm_model_name'),
+                temperature=st.session_state.get('llm_temperature', 0.7)
+            )
+            
+            return (
+                RunnablePassthrough.assign(query=sql_chain)
+                .assign(schema=ChainBuilder._get_schema)
+                .assign(response=ChainBuilder._run_query)
+                | ChainBuilder._process_response
+                | prompt
+                | llm
+                | StrOutputParser()
+            )
+        except Exception as e:
+            logger.error(f"Error building response chain: {str(e)}")
+            raise
+    
+    @staticmethod
+    def _format_sql_input(vars: Dict[str, Any]) -> Dict[str, Any]:
+        """Format input for SQL prompt template"""
+        try:
+            selected_tables = vars.get("selected_tables", [])
+            schema = get_schema(selected_tables)
+            table_list = "'" + "','".join(selected_tables) + "'" if selected_tables else "''"
+            return {
+                "schema": schema,
+                "question": vars["question"],
+                "table_list": table_list
+            }
+        except Exception as e:
+            logger.error(f"Error formatting SQL input: {str(e)}")
+            raise
+    
+    @staticmethod
+    def _get_schema(vars: Dict[str, Any]) -> str:
+        """Get schema information for selected tables"""
+        try:
+            return get_schema(vars.get("selected_tables", []))
+        except Exception as e:
+            logger.error(f"Error getting schema: {str(e)}")
+            raise
+    
+    @staticmethod
+    def _run_query(vars: Dict[str, Any]) -> Any:
+        """Execute SQL query"""
+        try:
+            query = vars.get("query")
+            if not query:
+                raise ValueError("No query provided")
+            return run_query(query)
+        except Exception as e:
+            logger.error(f"Error running query: {str(e)}")
+            raise
+    
+    @staticmethod
+    def _process_response(vars: Dict[str, Any]) -> Dict[str, Any]:
+        """Process response before final prompt"""
+        try:
+            from .insights import InsightGenerator
+            
+            schema_data = InsightGenerator.get_default_insights(vars.get("selected_tables", []))
+            schema_suggestions = InsightGenerator.generate_schema_suggestions(schema_data)
+            
+            vars["insights"] = schema_data
+            vars["suggestions"] = schema_suggestions
+            
+            if isinstance(vars["response"], str):
+                try:
+                    vars["response"] = eval(vars["response"])
+                except:
+                    pass
+            return vars
+        except Exception as e:
+            logger.error(f"Error processing response: {str(e)}")
+            raise
+
+================================================
+File: /src/utils/chatbot/insights.py
+================================================
+from typing import List, Dict, Any
+import logging
+from ...utils.database import run_query
+from .prompts import ChatbotPrompts
+from ...utils.llm_provider import LLMProvider
+import streamlit as st
+
+logger = logging.getLogger(__name__)
+
+class InsightGenerator:
+    """Handles the generation of insights from database schema and data"""
+    
+    @staticmethod
+    def get_default_insights(selected_tables: List[str]) -> List[Dict]:
+        """
+        Get basic information about selected tables and generate initial summary
+        """
+        try:
+            columns_data = []
+            for table in selected_tables:
+                try:
+                    query = f"""
+                    SELECT 
+                        COUNT(*) as count,
+                        COALESCE(
+                            (
+                                SELECT GROUP_CONCAT(COLUMN_NAME)
+                                FROM INFORMATION_SCHEMA.COLUMNS
+                                WHERE TABLE_NAME = '{table}'
+                                AND TABLE_SCHEMA = DATABASE()
+                            ),
+                            ''
+                        ) as columns
+                    FROM {table}
+                    """
+                    result = run_query(query)
+                    if result and len(result) > 0:
+                        row = result[0]
+                        count = row[0] if len(row) > 0 else 0
+                        columns = row[1] if len(row) > 1 else ''
+                        
+                        columns_data.append({
+                            "table": table,
+                            "count": count,
+                            "columns": columns.split(',') if columns else []
+                        })
+                    else:
+                        columns_data.append({
+                            "table": table,
+                            "count": 0,
+                            "columns": []
+                        })
+                except Exception as e:
+                    logger.error(f"Error getting info for table {table}: {str(e)}")
+                    columns_data.append({
+                        "table": table,
+                        "count": 0,
+                        "columns": []
+                    })
+            
+            return columns_data
+
+        except Exception as e:
+            logger.error(f"Error getting default insights: {str(e)}")
+            return []
+
+    @staticmethod
+    def generate_schema_suggestions(schema_data: List[Dict]) -> str:
+        """Generate query suggestions based on schema"""
+        try:
+            prompt = ChatbotPrompts.get_schema_suggestions_prompt()
+            
+            llm = LLMProvider.get_llm(
+                provider=st.session_state.get('llm_provider', 'openai'),
+                model_name=st.session_state.get('llm_model_name'),
+                temperature=st.session_state.get('llm_temperature', 0.7)
+            )
+            
+            from langchain_core.output_parsers import StrOutputParser
+            chain = prompt | llm | StrOutputParser()
+            
+            suggestions = chain.invoke({"schema_data": str(schema_data)})
+            return suggestions
+        except Exception as e:
+            logger.error(f"Error generating suggestions: {str(e)}")
+            return ""
+    
+    @staticmethod
+    def format_schema_overview(schema_data: List[Dict]) -> str:
+        """Format schema information in a readable way"""
+        try:
+            overview = []
+            for table in schema_data:
+                overview.append(f"""
+Tabla: {table['table']}
+- Columnas ({len(table['columns'])}): {', '.join(table['columns'])}
+- Registros: {table['count']}
+""")
+            return '\n'.join(overview)
+        except Exception as e:
+            logger.error(f"Error formatting schema overview: {str(e)}")
+            return ""
+

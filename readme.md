@@ -1,182 +1,179 @@
-# 🤖 Data Assistant AI - LangChain SQL
+# 🧮 Khipu AI
 
-An AI-powered data analysis assistant that enables natural language querying of MySQL databases. This project combines LangChain and OpenAI to translate natural language questions into SQL queries and present results interactively. Built with modularity and universal dataset compatibility in mind.
+Un asistente de análisis de datos impulsado por IA que permite consultar bases de datos MySQL usando lenguaje natural. Este proyecto combina LangChain, RAG (Retrieval Augmented Generation) y modelos de lenguaje para traducir preguntas en lenguaje natural a consultas SQL y presentar resultados de manera interactiva.
 
-## 🌟 Key Features
+## 🌟 Características Principales
 
-- **Natural Language Processing**: Converts plain language questions into SQL queries using LangChain and GPT-4
-- **Universal Dataset Compatibility**: Works with any structured dataset in MySQL
-- **Interactive UI**: Clean and intuitive Streamlit interface
-- **Intelligent Data Visualization**: Automatic chart generation based on query results
-- **Comprehensive Data Analysis**: Provides insights, patterns, and follow-up suggestions
-- **Multi-language Support**: Responds in the same language as the question
-- **Robust CSV Loading**: Advanced CSV import with multiple encoding and delimiter strategies
-- **Debug & Development Tools**: Built-in debugging panel and logging system
+- **Procesamiento de Lenguaje Natural**: Convierte preguntas en lenguaje natural a consultas SQL usando LangChain y modelos LLM
+- **Compatibilidad Universal con Datasets**: Funciona con cualquier conjunto de datos estructurado en MySQL
+- **RAG (Retrieval Augmented Generation)**: Mejora las respuestas utilizando documentación y contexto específico del dominio
+- **Soporte Multi-LLM**: Compatibilidad con múltiples proveedores de LLM (OpenAI, Ollama)
+- **Interfaz Interactiva**: Interfaz limpia e intuitiva construida con Streamlit
+- **Visualización Inteligente**: Generación automática de gráficos basados en resultados de consultas
+- **Soporte Multilingüe**: Responde en el mismo idioma de la pregunta
+- **Herramientas de Debug**: Panel de depuración y sistema de logging integrado
 
-## 🛠️ Technology Stack
+## 🏗️ Arquitectura
 
-- **Backend Framework**: Python 3.8+
-- **UI Framework**: Streamlit
+La arquitectura de Khipu AI está diseñada para ser modular, extensible y fácil de mantener:
+
+![Khipu AI Architecture](assets/images/architecture.svg)
+
+### Componentes Principales:
+
+1. **Frontend Layer**:
+   - UI basada en Streamlit
+   - Componentes reutilizables para visualización y entrada de datos
+   - Gestión de estado de la aplicación
+
+2. **Service Layer**:
+   - Data Processing Service: Manejo principal de consultas y respuestas
+   - RAG Service: Mejora de respuestas con contexto adicional
+   - State Management: Gestión del estado de la aplicación
+
+3. **Utility Layer**:
+   - Database Utils: Interacción con MySQL
+   - RAG Utils: Manejo de documentos y embeddings
+   - LLM Provider: Abstracción para diferentes proveedores de LLM
+   - Chatbot Utils: Procesamiento de consultas y respuestas
+
+4. **External Services**:
+   - MySQL Database: Almacenamiento principal de datos
+   - Vector Store: Almacenamiento de embeddings para RAG
+   - LLM Models: Modelos de lenguaje (OpenAI/Ollama)
+
+## 💡 Cómo Funciona RAG en Khipu AI
+
+El sistema RAG (Retrieval Augmented Generation) mejora la calidad de las respuestas incorporando conocimiento específico del dominio:
+
+1. **Indexación de Documentos**:
+   - Los documentos relevantes se cargan desde el directorio `/docs`
+   - Se procesan y dividen en chunks manejables
+   - Se generan embeddings usando OpenAI
+   - Se almacenan en una base de datos vectorial FAISS
+
+2. **Proceso de Consulta**:
+   - La pregunta del usuario se convierte en un embedding
+   - Se recuperan los documentos más relevantes de FAISS
+   - El contexto recuperado se combina con la pregunta original
+   - Se genera una respuesta mejorada usando el LLM
+
+3. **Beneficios**:
+   - Respuestas más precisas y contextualizadas
+   - Mejor comprensión del dominio específico
+   - Reducción de alucinaciones del modelo
+   - Capacidad de incorporar conocimiento especializado
+
+## 🛠️ Stack Tecnológico
+
+- **Backend**: Python 3.8+
+- **Frontend**: Streamlit
 - **AI/ML**:
   - LangChain
-  - OpenAI GPT-4
-  - LangChain Community
-- **Database**: MySQL
-- **Data Processing**:
+  - OpenAI/Ollama
+  - FAISS Vector Store
+- **Base de Datos**: MySQL
+- **Procesamiento de Datos**:
   - Pandas
   - NumPy
-- **Visualization**:
+- **Visualización**:
   - Matplotlib
   - Seaborn
-- **Development Tools**:
-  - Python-dotenv
-  - Logging system
-  - Type hints
 
-## 📋 Prerequisites
+## 📋 Requisitos
 
-- Python 3.8 or higher
+- Python 3.8 o superior
 - MySQL Server
-- OpenAI API key
-- Git (for repository management)
+- OpenAI API key (opcional si usa Ollama)
+- Ollama (opcional si usa OpenAI)
+- Git
 
-## 🚀 Installation
+## 🚀 Instalación
 
-1. **Clone the Repository**:
+1. **Clonar el Repositorio**:
 ```bash
-git clone https://github.com/ronaldmego/data_assistant_ai.git
-cd data_assistant_ai
+git clone https://github.com/ronaldmego/khipu_ai.git
+cd khipu_ai
 ```
 
-2. **Run Setup Script**:
+2. **Ejecutar Script de Setup**:
 ```bash
 python scripts/setup.py
 ```
-This script will:
-- Create a virtual environment
-- Install all dependencies
-- Generate requirements.txt
-- Guide you through initial configuration
 
-3. **Configure Environment Variables**:
-Create a `.env` file in the project root:
+3. **Configurar Variables de Entorno**:
+Crear archivo `.env` en la raíz del proyecto:
 ```env
-OPENAI_API_KEY=your_openai_api_key
-MYSQL_USER=your_mysql_user
-MYSQL_PASSWORD=your_mysql_password
-MYSQL_HOST=your_mysql_host
-MYSQL_DATABASE=your_database_name
-IGNORED_TABLES=table1,table2,table3
+# LLM Provider Configuration
+DEFAULT_LLM_PROVIDER=ollama
+DEFAULT_TEMPERATURE=0.7
+
+# OpenAI Configuration (opcional)
+OPENAI_API_KEY=your_key_here
+
+# Ollama Configuration
+OLLAMA_BASE_URL=http://localhost:11434
+
+# MySQL Configuration
+MYSQL_USER=your_user
+MYSQL_PASSWORD=your_password
+MYSQL_HOST=your_host
+MYSQL_DATABASE=your_database
 ```
 
-## 💡 Usage
+## 📚 Configuración de RAG
 
-1. **Start the Application**:
+1. **Preparar Documentos**:
+   - Coloca tus documentos relevantes en el directorio `/docs`
+   - Formatos soportados: .txt, .md, .pdf
+
+2. **Estructura de Documentos**:
+```
+docs/
+├── time_series_handling.md
+├── database_schema.md
+└── business_rules.pdf
+```
+
+3. **Consideraciones**:
+   - Usa documentos concisos y relevantes
+   - Organiza la información de manera clara
+   - Actualiza los documentos según sea necesario
+
+## 💻 Uso
+
+1. **Iniciar la Aplicación**:
 ```bash
 streamlit run src/pages/Home.py
 ```
 
-2. **Load Your Data**:
-- Place CSV files in the `data/` directory
-- Use the data loader:
-```bash
-python scripts/load.py
-```
+2. **Configurar la Base de Datos**:
+   - Selecciona las tablas a consultar
+   - Verifica la conexión en el panel de debug
 
-3. **Access the Interface**:
-- Local: `http://localhost:8501`
-- Network: `http://[your-ip]:8501`
+3. **Realizar Consultas**:
+   - Escribe preguntas en lenguaje natural
+   - Observa las consultas SQL generadas
+   - Analiza las visualizaciones automáticas
 
-4. **Query Your Data**:
-The assistant supports various types of queries:
-- Overview questions: "What data is available?"
-- Statistical queries: "Show me the distribution of incidents by type"
-- Time-based analysis: "What's the trend over the last 6 months?"
-- Cross-tabulations: "Compare categories by volume"
+## 🤝 Contribuir
 
-## 🔍 Advanced Features
+1. Fork el repositorio
+2. Crea tu rama de feature
+3. Commit tus cambios
+4. Push a la rama
+5. Crea un Pull Request
 
-### Data Loading
-- Multiple encoding support (UTF-8, ISO-8859-1, CP1252)
-- Automatic delimiter detection (comma, semicolon)
-- Robust error handling with multiple fallback strategies
-- Automatic data type inference
-- Batch processing for large datasets
+## 📄 Licencia
 
-### Visualization
-- Automatic chart type selection based on data structure
-- Interactive visualizations with Streamlit
-- Support for bar charts, line plots, and custom visualizations
-- Dynamic color schemes
+Este proyecto está licenciado bajo MIT License - ver [LICENSE](LICENSE) para más detalles.
 
-### Debug Panel
-- Real-time query logging
-- Performance metrics tracking
-- Error monitoring
-- State management visualization
-
-## 🛠️ Development
-
-### Adding New Features
-1. Follow the modular structure
-2. Update type hints
-3. Add appropriate logging
-4. Include error handling
-5. Update tests if applicable
-
-### Code Style
-- Use type hints for better code documentation
-- Follow PEP 8 standards
-- Document functions and classes
-- Use meaningful variable names
-- Include comprehensive error handling
-
-## 🔄 Continuous Improvement
-
-### Current Development Focus
-- [ ] Enhanced visualization options
-- [ ] Query caching system
-- [ ] Additional data source support
-- [ ] Improved error handling
-- [ ] Extended testing coverage
-
-### Future Plans
-- [ ] Real-time data processing
-- [ ] Custom visualization templates
-- [ ] Advanced query optimization
-- [ ] Multiple database support
-- [ ] Export functionality
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Add your changes
-4. Submit a pull request
-
-### Contribution Guidelines
-- Follow existing code structure
-- Add documentation
-- Include error handling
-- Maintain code style consistency
-- Write descriptive commit messages
-
-## 📄 License
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
-
-## 👥 Author
+## 👥 Autor
 
 **Ronald Mego**
-- Portfolio: [ronaldmego.github.io](https://ronaldmego.github.io/)
-- GitHub: [@ronaldmego](https://github.com/ronaldmego)
-
-## 🙏 Acknowledgments
-
-- Family and supporters
-- Open source community
-- Documentation and feedback providers
+- [Portfolio](https://ronaldmego.github.io/)
+- [GitHub](https://github.com/ronaldmego)
 
 ---
 
-For more information and updates, visit the [project repository](https://github.com/ronaldmego/data_assistant_ai).
+Para más información y actualizaciones, visita el [repositorio del proyecto](https://github.com/ronaldmego/khipu_ai).

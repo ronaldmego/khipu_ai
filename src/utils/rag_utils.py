@@ -22,19 +22,12 @@ def load_documents(docs_path: Path) -> List:
     """Load documents from various sources"""
     documents = []
     
-    # Log the absolute path being checked
-    abs_path = docs_path.absolute()
-    logger.info(f"Checking for documents in: {abs_path}")
-    
+    # Asegurarse de que solo busca en la carpeta docs
+    docs_path = Path("docs")  # Forzar el path a docs
     if not docs_path.exists():
-        logger.warning(f"Documents directory {abs_path} does not exist")
-        # Create the directory if it doesn't exist
+        logger.warning(f"Documents directory {docs_path} does not exist")
         docs_path.mkdir(parents=True, exist_ok=True)
         return documents
-        
-    # Log existing files in directory
-    files = list(docs_path.glob('**/*'))
-    logger.info(f"Files found in docs directory: {[str(f) for f in files]}")
 
     # Load PDFs
     pdf_loader = DirectoryLoader(str(docs_path), glob="**/*.pdf", loader_cls=PyPDFLoader)

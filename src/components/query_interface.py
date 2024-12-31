@@ -8,6 +8,41 @@ from typing import List
 from src.utils.llm_provider import LLMProvider
 from config.config import get_default_model
 
+def display_model_settings():
+    """Display model settings in sidebar"""
+    st.sidebar.markdown("## Model Settings")
+    ollama_available = LLMProvider.check_ollama_availability()
+    
+    if not ollama_available:
+        st.sidebar.warning("⚠️ Ollama service not detected")
+    
+    provider = st.sidebar.selectbox(
+        "Select Provider",
+        options=['openai', 'ollama'],
+        index=0 if st.session_state.get('llm_provider') == 'openai' else 1,
+        key='provider_select'
+    )
+    st.session_state['llm_provider'] = provider
+    
+    available_models = LLMProvider.list_available_models(provider)
+    model_name = st.sidebar.selectbox(
+        "Select Model",
+        options=available_models,
+        index=available_models.index(get_default_model(provider)) if get_default_model(provider) in available_models else 0,
+        key='model_select'
+    )
+    st.session_state['llm_model_name'] = model_name
+    
+    temperature = st.sidebar.slider(
+        "Temperature",
+        min_value=0.0,
+        max_value=1.0,
+        value=st.session_state.get('llm_temperature', 0.7),
+        step=0.1,
+        key='temperature_slider'
+    )
+    st.session_state['llm_temperature'] = temperature
+
 def display_table_selection() -> List[str]:
     """Display table selection interface and return selected tables"""
     try:
@@ -16,15 +51,16 @@ def display_table_selection() -> List[str]:
             st.sidebar.error("No tables found in database.")
             return []
         
+        st.sidebar.markdown("---")
         st.sidebar.write("📊 Select tables to query:")
         
         # Crear dos columnas para los botones de selección
         col1, col2 = st.sidebar.columns(2)
         with col1:
-            if st.button("Select All"):
+            if st.sidebar.button("Select All"):  # Cambiar a st.sidebar.button
                 st.session_state['selected_tables'] = tables
         with col2:
-            if st.button("Clear All"):
+            if st.sidebar.button("Clear All"):   # Cambiar a st.sidebar.button
                 st.session_state['selected_tables'] = []
 
         # Inicializar selected_tables en session_state si no existe
@@ -34,7 +70,7 @@ def display_table_selection() -> List[str]:
         # Multiselect con los nombres originales de las tablas
         selected_tables = st.sidebar.multiselect(
             "Available Tables:",
-            options=sorted(tables, reverse=True),  # Ordenado de más reciente a más antiguo
+            options=sorted(tables, reverse=True),
             default=st.session_state['selected_tables'],
             key='table_selector'
         )
@@ -42,54 +78,25 @@ def display_table_selection() -> List[str]:
         # Guardar la selección en session_state
         st.session_state['selected_tables'] = selected_tables
         
-        # Mostrar contador de selección
+        # Mostrar las tablas seleccionadas en el sidebar
         if selected_tables:
+            with st.sidebar.expander("Selected Tables", expanded=False):
+                st.write(", ".join(selected_tables))
             st.sidebar.success(f"✅ Selected {len(selected_tables)} tables")
         else:
             st.sidebar.warning("⚠️ No tables selected")
+            
+        # Mostrar estado de conexión al final
+        st.sidebar.markdown("---")
+        st.sidebar.success("✔️ Connected to database")
+        if tables:
+            st.sidebar.info(f"Available tables: {len(tables)}")
             
         return selected_tables
         
     except Exception as e:
         st.sidebar.error(f"Error in table selection: {str(e)}")
         return []
-
-def display_query_interface():
-    """Display the main query interface"""
-    # Initialize session states
-    if 'current_question' not in st.session_state:
-        st.session_state['current_question'] = ""
-    
-    # Obtener las tablas seleccionadas
-    selected_tables = st.session_state.get('selected_tables', [])
-    
-    if not selected_tables:
-        st.warning("Please select at least one table from the sidebar to start querying.")
-        return
-    
-    # Mostrar las tablas seleccionadas en un expander
-    with st.expander("Selected Tables", expanded=False):
-        st.write(", ".join(selected_tables))
-    
-    # Contenedor principal para el input y botón
-    col1, col2 = st.columns([6,1])
-    
-    with col1:
-        question = st.text_input(
-            "Question",  # Añadimos un label pero lo ocultamos
-            value=st.session_state['current_question'],
-            placeholder="Ask a question about your data...",
-            label_visibility="collapsed"
-        )
-    
-    with col2:
-        ask_button = st.button("🔍 Ask", type="primary", use_container_width=True)
-    
-    # Process query if button is clicked or if we have a new quick question
-    if ask_button or question != st.session_state['current_question']:
-        if question and selected_tables:  # Solo procesar si hay una pregunta y tablas seleccionadas
-            st.session_state['current_question'] = question
-            process_query(question, selected_tables)
 
 def process_query(question: str, selected_tables: List[str]):
     """Process a query and display results"""
@@ -140,36 +147,35 @@ def process_query(question: str, selected_tables: List[str]):
             st.error(f"Error processing query: {str(e)}")
             st.info("Please check your database connection and API keys.")
 
-def display_model_settings():
-    st.sidebar.markdown("## Model Settings")
-    ollama_available = LLMProvider.check_ollama_availability()
+def display_query_interface():
+    """Display the main query interface"""
+    # Initialize session states
+    if 'current_question' not in st.session_state:
+        st.session_state['current_question'] = ""
     
-    if not ollama_available:
-        st.sidebar.warning("⚠️ Ollama service not detected")
+    # Obtener las tablas seleccionadas
+    selected_tables = st.session_state.get('selected_tables', [])
     
-    provider = st.sidebar.selectbox(
-        "Select Provider",
-        options=['openai', 'ollama'],
-        index=0 if st.session_state.get('llm_provider') == 'openai' else 1,
-        key='provider_select'
-    )
-    st.session_state['llm_provider'] = provider
+    if not selected_tables:
+        st.warning("Please select at least one table from the sidebar to start querying.")
+        return
     
-    available_models = LLMProvider.list_available_models(provider)
-    model_name = st.sidebar.selectbox(
-        "Select Model",
-        options=available_models,
-        index=available_models.index(get_default_model(provider)) if get_default_model(provider) in available_models else 0,
-        key='model_select'
-    )
-    st.session_state['llm_model_name'] = model_name
+    # Contenedor principal para el input y botón
+    col1, col2 = st.columns([6,1])
     
-    temperature = st.sidebar.slider(
-        "Temperature",
-        min_value=0.0,
-        max_value=1.0,
-        value=st.session_state.get('llm_temperature', 0.7),
-        step=0.1,
-        key='temperature_slider'
-    )
-    st.session_state['llm_temperature'] = temperature
+    with col1:
+        question = st.text_input(
+            "Question",
+            value=st.session_state['current_question'],
+            placeholder="Ask a question about your data...",
+            label_visibility="collapsed"
+        )
+    
+    with col2:
+        ask_button = st.button("🔍 Ask", type="primary", use_container_width=True)
+    
+    # Process query if button is clicked or if we have a new quick question
+    if ask_button or question != st.session_state['current_question']:
+        if question and selected_tables:
+            st.session_state['current_question'] = question
+            process_query(question, selected_tables)

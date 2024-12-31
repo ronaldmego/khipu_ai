@@ -79,14 +79,11 @@ def main():
         initialize_session_state()
         
         # Header principal
-        display_header()
+        display_header(show_connection_status=False)  # Desactivamos el status aquí
         
-        # Sidebar settings
-        st.sidebar.markdown("---")
-        
-        # Model settings section
+        # Sidebar settings - Orden específico
         display_model_settings()
-        st.sidebar.markdown("---")
+        selected_tables = display_table_selection()  # Ahora incluye el status de conexión al final
         
         # Verificar API key si se usa OpenAI
         if st.session_state.get('llm_provider') == 'openai':
@@ -95,21 +92,7 @@ def main():
                 return
         
         # Inicializar RAG
-        #initialize_rag_components()
         RAGService.initialize_components()
-        
-        # Database connection status
-        connection_status = test_database_connection()
-        if connection_status["success"]:
-            st.sidebar.success("✔️ Connected to database")
-            if connection_status["tables"]:
-                st.sidebar.info(f"Available tables: {len(connection_status['tables'])}")
-        else:
-            st.sidebar.error(f"❌ Connection error: {connection_status['error']}")
-            return
-        
-        # Table selection
-        selected_tables = display_table_selection()
         
         # Main content tabs
         tab1, tab2 = st.tabs(["Chat", "Debug Logs"])
@@ -118,7 +101,6 @@ def main():
             # Mostrar la interfaz principal solo si hay tablas seleccionadas
             if selected_tables:
                 st.session_state['selected_tables'] = selected_tables
-                st.markdown("---")  # Separador visual
                 display_query_interface()
                 
                 # Mostrar historial si existe

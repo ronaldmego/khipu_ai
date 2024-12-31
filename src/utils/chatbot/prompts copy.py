@@ -53,7 +53,7 @@ Approach:
 4. Structure the query to enable deeper analysis
 
 IMPORTANT: 
-- Return just the SQL query without any markdown formatting
+- Return just the SQL query without formatting
 - Focus on revealing patterns and relationships
 - Include columns that provide valuable context
 - Structure results to enable meaningful visualization
@@ -134,6 +134,7 @@ IMPORTANT:
 - Format large numbers clearly"""
         
         return ChatPromptTemplate.from_template(template)
+    
 
     @staticmethod
     def get_schema_suggestions_prompt() -> ChatPromptTemplate:

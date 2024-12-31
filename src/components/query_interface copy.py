@@ -128,29 +128,15 @@ def process_query(question: str, selected_tables: List[str]):
                             with sql_expander:
                                 st.code(response.get('query', ''), language='sql')
 
-                        # RAG Documents Overview
-                        if response.get('loaded_documents'):
-                            docs_expander = st.expander("📚 Available Knowledge Base", expanded=False)
-                            with docs_expander:
-                                st.markdown("The following documents are available for analysis:")
-                                for doc_info in response['loaded_documents']:
-                                    st.markdown(doc_info)
-
                         # RAG Context section
-                        if response.get('documents_used'):
-                            rag_expander = st.expander("🔍 Knowledge Sources Used", expanded=False)
+                        if response.get('rag_context'):
+                            rag_expander = st.expander("📚 Documents Used for Analysis", expanded=False)
                             with rag_expander:
-                                st.markdown("### Documents Used for Analysis")
-                                for source, info in response['documents_used'].items():
-                                    st.markdown(f"""
-**Document:** {source}
-- Type: {info['type']}
-- Chunks used: {info['chunks']}
-""")
-                                st.markdown("### Relevant Context")
-                                for ctx in response.get('rag_context', []):
-                                    st.markdown("---")
+                                st.markdown("The following document excerpts were used to enhance the analysis:")
+                                for idx, ctx in enumerate(response['rag_context'], 1):
+                                    st.markdown(f"**Document {idx}:**")
                                     st.markdown(f"```\n{ctx[:300]}...\n```")
+                                    st.markdown("---")
                 
                 # Add to history
                 if 'history' not in st.session_state:

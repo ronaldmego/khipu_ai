@@ -276,23 +276,9 @@ class ResponseProcessor:
                 'schema_overview': None
             }
             
-            # Add RAG context and document usage if available
+            # Add RAG context if available
             if 'last_context' in st.session_state:
                 formatted_response['rag_context'] = st.session_state.get('last_context', [])
-            
-            # Add loaded documents info
-            if 'loaded_documents' in st.session_state:
-                loaded_docs = []
-                for source, info in st.session_state['loaded_documents'].items():
-                    loaded_docs.append(f"""
-📄 {source}
-   Type: {info['type']}
-   Total chunks: {info['chunks']}""")
-                formatted_response['loaded_documents'] = loaded_docs
-            
-            # Add used documents info
-            if 'last_used_documents' in st.session_state:
-                formatted_response['documents_used'] = st.session_state['last_used_documents']
             
             return formatted_response
             

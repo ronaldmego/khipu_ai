@@ -27,6 +27,21 @@ class RAGService:
                 if not documents:
                     return
                     
+                # Guardar metadatos de documentos cargados
+                doc_metadata = {}
+                for doc in documents:
+                    source = str(doc.metadata.get('source', 'Unknown'))
+                    if source in doc_metadata:
+                        doc_metadata[source]['chunks'] += 1
+                    else:
+                        doc_metadata[source] = {
+                            'chunks': 1,
+                            'type': source.split('.')[-1].lower()
+                        }
+                
+                st.session_state['loaded_documents'] = doc_metadata
+                logger.info(f"Loaded documents metadata: {doc_metadata}")
+                    
                 vector_store = create_vector_store(documents, embeddings)
                 if not vector_store:
                     return
@@ -40,21 +55,29 @@ class RAGService:
     
     @staticmethod
     def process_query(question: str, selected_tables: Optional[List[str]] = None) -> Dict:
-        """
-        Process query using RAG enhancement
-        
-        Args:
-            question (str): The user's question
-            selected_tables (Optional[List[str]]): List of selected tables to query
-        
-        Returns:
-            Dict: Processed query result with context
-        """
+        """Process query using RAG enhancement"""
         try:
             if not st.session_state.get('rag_initialized'):
                 return {'question': question, 'error': 'RAG not initialized'}
             
+            # Obtener contexto relevante
             context = RAGService._get_relevant_context(question)
+            
+            # Mejorar el tracking de documentos usados
+            used_docs = {}
+            for doc in context:
+                source = str(doc.metadata.get('source', 'Unknown'))
+                if source in used_docs:
+                    used_docs[source]['chunks'] += 1
+                else:
+                    used_docs[source] = {
+                        'chunks': 1,
+                        'type': source.split('.')[-1].lower()
+                    }
+            
+            # Guardar metadata de documentos usados
+            st.session_state['last_used_documents'] = used_docs
+            
             chat_history = RAGService._get_chat_history()
             
             query = RAGService._generate_enhanced_query(
@@ -66,10 +89,21 @@ class RAGService:
             
             RAGService._update_memory(question, query)
             
+            # Incluir información más detallada sobre documentos usados
+            doc_usage = []
+            for source, info in used_docs.items():
+                doc_usage.append(f"""
+Document: {source}
+Type: {info['type']}
+Chunks used: {info['chunks']}
+Content preview: {next((doc.page_content[:200] + '...' for doc in context if str(doc.metadata.get('source')) == source), 'No preview available')}
+""")
+            
             return {
                 'question': question,
                 'query': query,
                 'context_used': [doc.page_content for doc in context],
+                'documents_used': doc_usage,  # Nueva información detallada
                 'chat_history': chat_history
             }
             

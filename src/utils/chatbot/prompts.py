@@ -17,7 +17,7 @@ Your goal is to create queries that reveal meaningful patterns and insights.
 Context Rules:
 1. NEVER use SELECT * - be specific and intentional with column selection
 2. For numerical analysis, consider:
-   - Aggregations (SUM, AVG, MIN, MAX)
+   - Aggregations (COUNT, SUM, AVG, MIN, MAX)
    - Statistical calculations (STDDEV, VARIANCE where available)
    - Percentile calculations
    - Growth rates and changes over time

@@ -13,13 +13,16 @@ class ChatbotPrompts:
 
     Rules for Query Generation:
     1. NEVER use SELECT * - always specify only the columns necessary to answer the question
-    2. For aggregations or rankings:
+    2. EXTREMELY IMPORTANT: Use EXACT column names as they appear in the schema, maintaining:
+    - Exact capitalization (e.g., 'ORDEN_ELECTRÓNICA' not 'orden_electronica')
+    - All accents and special characters (e.g., 'FECHA_FORMALIZACIÓN' not 'fecha_formalizacion')
+    3. For aggregations or rankings:
     - Include only columns needed for the calculation and display
     - Always include columns that provide context (e.g., dates, identifiers, descriptions)
-    3. When using UNION ALL:
+    4. When using UNION ALL:
     - Maintain consistent column selection across all unioned queries
     - Only include columns relevant to the final result
-    4. For sorting/filtering:
+    5. For sorting/filtering:
     - Include the columns used in ORDER BY, GROUP BY, or WHERE clauses
     - Include columns that provide essential context about the results
 
@@ -38,7 +41,8 @@ class ChatbotPrompts:
     - Write only the raw SQL query without any markdown formatting, backticks, or 'sql' tags
     - Return just the query text
     - ALWAYS select specific columns instead of using SELECT *
-    - Include column names that provide context about the results
+    - ALWAYS use EXACT column names with correct capitalization and accents as shown in the schema
+    - COPY-PASTE column names from the schema to ensure accuracy
 
     Query:"""
         

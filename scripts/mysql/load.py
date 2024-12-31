@@ -56,33 +56,54 @@ class CSVLoader:
             logger.error(f"Error verificando tabla {table_name}: {str(e)}")
             return False
 
+    def standardize_column_name(self, column_name: str) -> str:
+        """
+        Estandariza el nombre de una columna:
+        - Remueve tildes y caracteres especiales
+        - Convierte a minúsculas
+        - Reemplaza espacios y guiones con underscore
+        
+        Args:
+            column_name (str): Nombre original de la columna
+            
+        Returns:
+            str: Nombre estandarizado de la columna
+        """
+        # Mapeo de caracteres especiales y tildes
+        special_chars = {
+            'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
+            'Á': 'a', 'É': 'e', 'Í': 'i', 'Ó': 'o', 'Ú': 'u',
+            'ñ': 'n', 'Ñ': 'n', 'ü': 'u', 'Ü': 'u',
+            ' ': '_', '-': '_', '.': '_'
+        }
+        
+        # Convertir a minúsculas
+        clean_name = column_name.lower()
+        
+        # Reemplazar caracteres especiales
+        for char, replacement in special_chars.items():
+            clean_name = clean_name.replace(char, replacement)
+        
+        # Remover cualquier carácter que no sea alfanumérico o underscore
+        clean_name = ''.join(c if c.isalnum() or c == '_' else '' for c in clean_name)
+        
+        # Remover underscores múltiples
+        while '__' in clean_name:
+            clean_name = clean_name.replace('__', '_')
+        
+        # Remover underscore al inicio o final
+        clean_name = clean_name.strip('_')
+        
+        # Si el nombre empieza con un número, añadir 'col_' al inicio
+        if clean_name[0].isdigit():
+            clean_name = f'col_{clean_name}'
+        
+        return clean_name
+
     def create_table_from_df(self, table_name: str, df: pd.DataFrame) -> bool:
         """Crea una tabla basada en la estructura del DataFrame"""
         try:
-            # Mapeo específico para las columnas de Perú Compras
-            column_mapping = {
-                'FECHA_PROCESO': 'DATETIME',
-                'RUC_PROVEEDOR': 'VARCHAR(11)',
-                'PROVEEDOR': 'VARCHAR(255)',
-                'RUC_ENTIDAD': 'VARCHAR(11)',
-                'ENTIDAD': 'VARCHAR(255)',
-                'TIPO_PROCEDIMIENTO': 'VARCHAR(50)',
-                'ORDEN_ELECTRÓNICA': 'VARCHAR(100)',
-                'ORDEN_ELECTRÓNICA_GENERADA': 'VARCHAR(500)',
-                'ESTADO_ORDEN_ELECTRÓNICA': 'VARCHAR(50)',
-                'DOCUMENTO_ESTADO_OCAM': 'VARCHAR(500)',
-                'FECHA_FORMALIZACIÓN': 'DATETIME',
-                'FECHA_ÚLTIMO_ESTADO': 'DATETIME',
-                'SUB_TOTAL': 'DECIMAL(15,2)',
-                'IGV': 'DECIMAL(15,2)',
-                'TOTAL': 'DECIMAL(15,2)',
-                'ORDEN_DIGITALIZADA': 'VARCHAR(500)',
-                'DESCRIPCIÓN_ESTADO': 'VARCHAR(255)',
-                'DESCRIPCIÓN_CESIÓN_DERECHOS': 'VARCHAR(255)',
-                'ACUERDO_MARCO': 'VARCHAR(255)'
-            }
-            
-            # Mapeo por defecto para columnas no especificadas
+            # Mapeo por defecto para tipos de datos
             default_type_mapping = {
                 'int64': 'BIGINT',
                 'float64': 'DECIMAL(15,2)',
@@ -93,31 +114,44 @@ class CSVLoader:
             
             # Crear la definición de columnas
             columns = []
+            clean_column_names = {}  # Diccionario para mapear nombres originales a limpios
+            
             for col in df.columns:
-                # Limpiar nombre de columna
-                clean_col = col.replace(" ", "_").replace("-", "_").lower()
-                # Obtener tipo de dato (usar mapeo específico si existe)
-                sql_type = column_mapping.get(col, None)
-                if sql_type is None:
-                    col_type = str(df[col].dtype)
-                    sql_type = default_type_mapping.get(col_type, 'TEXT')
+                # Estandarizar nombre de columna
+                clean_col = self.standardize_column_name(col)
+                clean_column_names[col] = clean_col
+                
+                # Obtener tipo de dato
+                col_type = str(df[col].dtype)
+                sql_type = default_type_mapping.get(col_type, 'TEXT')
+                
+                # Ajustar longitud de VARCHAR basado en los datos
+                if sql_type == 'VARCHAR(255)':
+                    max_length = df[col].astype(str).str.len().max()
+                    sql_type = f'VARCHAR({min(max(max_length * 2, 50), 500)})'
                 
                 columns.append(f"`{clean_col}` {sql_type}")
+            
+            # Renombrar columnas en el DataFrame
+            df.rename(columns=clean_column_names, inplace=True)
 
-            # Crear la tabla si no existe con índice único
+            # Crear la tabla si no existe
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS `{table_name}` (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                {', '.join(columns)},
-                UNIQUE KEY `uk_orden_fecha` (`orden_electrónica`, `fecha_proceso`)
+                {', '.join(columns)}
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
             """
             
             self.cursor.execute(create_table_sql)
             self.conn.commit()
             logger.info(f"Tabla {table_name} creada o verificada exitosamente")
-            return True
+            logger.info("Mapeo de columnas realizado:")
+            for original, clean in clean_column_names.items():
+                logger.info(f"  {original} -> {clean}")
             
+            return True
+                
         except Error as e:
             logger.error(f"Error creando tabla {table_name}: {str(e)}")
             return False
@@ -215,14 +249,18 @@ class CSVLoader:
     def process_directory(self, directory: str = 'data'):
         """Procesa todos los archivos CSV en un directorio"""
         try:
+            # Obtener ruta raíz del proyecto (2 niveles arriba de scripts/mysql)
+            root_path = Path(__file__).parent.parent.parent
+            data_dir = root_path / directory
+            
             # Verificar que el directorio existe
-            if not os.path.exists(directory):
-                raise Exception(f"El directorio {directory} no existe")
+            if not data_dir.exists():
+                raise Exception(f"El directorio {data_dir} no existe")
 
             # Obtener lista de archivos CSV
-            csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
+            csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
             if not csv_files:
-                logger.warning(f"No se encontraron archivos CSV en {directory}")
+                logger.warning(f"No se encontraron archivos CSV en {data_dir}")
                 return
 
             # Conectar a la base de datos
@@ -234,7 +272,7 @@ class CSVLoader:
             failed = 0
             
             for csv_file in csv_files:
-                csv_path = os.path.join(directory, csv_file)
+                csv_path = os.path.join(data_dir, csv_file)
                 if self.load_csv_to_table(csv_path):
                     successful += 1
                 else:

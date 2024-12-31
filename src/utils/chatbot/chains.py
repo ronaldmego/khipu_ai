@@ -122,6 +122,8 @@ class ChainBuilder:
             
             vars["insights"] = schema_data
             vars["suggestions"] = schema_suggestions
+            # Añadir el contexto RAG
+            vars["rag_context"] = st.session_state.get('last_context', [])
             
             if isinstance(vars["response"], str):
                 try:

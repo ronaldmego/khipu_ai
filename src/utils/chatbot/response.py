@@ -34,9 +34,42 @@ class ResponseProcessor:
                 return main_response, None
             
             try:
-                # Convertir string de datos a estructura Python
-                data_list = eval(data_str, {'Decimal': Decimal})
-                if not isinstance(data_list, (list, tuple)) or not data_list:
+                # Limpiar y normalizar el string de datos
+                data_str = data_str.replace(' ', '')  # Remover espacios
+                
+                # Intentar extraer la lista usando expresiones regulares
+                import re
+                matches = re.findall(r'\(([^)]+)\)', data_str)
+                
+                if not matches:
+                    return main_response, None
+                    
+                data_list = []
+                for match in matches:
+                    try:
+                        # Separar la categoría y el valor
+                        parts = match.split(',', 1)
+                        if len(parts) != 2:
+                            continue
+                            
+                        category = parts[0].strip('"\'')
+                        # Limpiar y convertir el valor numérico
+                        value_str = parts[1].strip().replace('_', '')
+                        
+                        # Manejar diferentes formatos numéricos
+                        try:
+                            value = float(value_str)
+                        except ValueError:
+                            # Si falla, intentar limpiar el string
+                            clean_value = re.sub(r'[^\d.-]', '', value_str)
+                            value = float(clean_value)
+                            
+                        data_list.append((category, value))
+                    except Exception as e:
+                        logger.warning(f"Error processing data item {match}: {str(e)}")
+                        continue
+                
+                if not data_list:
                     return main_response, None
                     
                 visualization_data = [
